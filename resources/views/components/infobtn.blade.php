@@ -1,0 +1,1 @@
+<a href="/support" class="text-secondary"><i class="fa-solid fa-circle-info"></i></a>

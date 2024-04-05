@@ -5,17 +5,6 @@ use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 
 class MyUtil {
-  public static function getParentPages () {
-    $pages = Page::whereNull('parent_id')->get();
-    return $pages;
-  }
-
-  public static function getCurrentPage () {
-    $path = explode('/', url()->current())[1];
-    $page = Page::where('path', $path)->first();
-    return $page;
-  }
-  
   public static function url_param_change($par=Array(),$op=0) {
     $url = parse_url($_SERVER["REQUEST_URI"]);
     if(isset($url["query"])) parse_str($url["query"],$query);

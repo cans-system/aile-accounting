@@ -1,1 +1,0 @@
-<h2 class="display-5 mb-3">{{ $slot }}</h2>

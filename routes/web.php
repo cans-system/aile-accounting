@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,10 +37,8 @@ Route::middleware(['auth'])->group(function () {
         return view('pages.home');
     });
 
-    Route::prefix('admin')->group(function () {
-        Route::get('users', function () {
-            return view('pages.admin.users');
-        });
+    Route::prefix('admin')->controller(AdminUserController::class)->group(function () {
+        Route::get('users', 'index');
     });
 });
 

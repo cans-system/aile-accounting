@@ -42,4 +42,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function link () {
+        return url("/users/{$this->id}");
+    }
+
+    public function client () {
+        return $this->belongsTo(Client::class);
+    }
 }

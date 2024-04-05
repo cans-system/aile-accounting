@@ -16,14 +16,30 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['guest'])->group(function () {
     Route::view('/login', 'pages.login')->name('login');
-    
     Route::post('/login', [AuthController::class, 'login']);
 });
 
-Route::get('/', function () {
-    return redirect('/home');
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('users')->group(function () {
+        Route::get('/:user', function () {
+            return 'user';
+        });
+    });
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::get('/', function () {
+        return redirect('/home');
+    });
+    
+    Route::get('/home', function () {
+        return view('pages.home');
+    });
+
+    Route::prefix('admin')->group(function () {
+        Route::get('users', function () {
+            return view('pages.admin.users');
+        });
+    });
 });
 
-Route::get('/home', function () {
-    return view('pages.home');
-});

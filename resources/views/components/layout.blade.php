@@ -4,7 +4,9 @@
 <body>
 <x-header />
 <main>
-{{ $slot }}
+  <div class="px-4">
+    {{ $slot }}
+  </div>
 </main>
 <x-toast />
 </body>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\MasterCompanyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,7 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('users')->group(function () {
-        Route::get('/:user', function () {
+        Route::get('/{user}', function () {
             return 'user';
         });
     });
@@ -37,8 +38,14 @@ Route::middleware(['auth'])->group(function () {
         return view('pages.home');
     });
 
-    Route::prefix('admin')->controller(AdminUserController::class)->group(function () {
-        Route::get('users', 'index');
+    Route::prefix('master')->group(function () {
+        Route::resource('master', MasterCompanyController::class);
+    });
+
+    Route::prefix('admin')->group(function () {
+        Route::resource('users', AdminUserController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
     });
 });
 

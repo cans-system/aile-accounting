@@ -39,19 +39,21 @@
       @foreach (config('app.pages') as $page)
         <li class="position-relative hover">
           <a class="text-decoration-none p-2 text-reset d-block" role="button">{{ $page[0] }}</a>
-          <div class="position-absolute top-100 bg-text-blue p-3 hover-list" style="width: 900px; display: none;">
-            @foreach ($page[2] as $child)
-              <div class="mb-2">
-                <h4 class="fw-bold">{{ $child[0] }}</h4>
-                <ul>
-                  @foreach ($child[1] as $grandchild)
-                    <li class="mb-1">
-                      <a class="text-decoration-none text-reset" href="{{ $page[1] }}{{ $grandchild[1] }}">{{ $grandchild[0] }}</a>
-                    </li>
-                  @endforeach
-                </ul>
-              </div>
-            @endforeach
+          <div class="position-absolute top-100 bg-text-blue p-3 hover-list z-1" style="width: 900px; display: none;">
+            <div class="" style="column-count: 3;">
+              @foreach ($page[2] as $child)
+                <div class="col mb-4" style="break-inside: avoid;">
+                  <h5>{{ $child[0] }}</h5>
+                  <ul class="ps-4">
+                    @foreach ($child[1] as $grandchild)
+                      <li class="mb-1">
+                        <a class="text-decoration-none text-reset" href="{{ $page[1] }}{{ $grandchild[1] }}">{{ $grandchild[0] }}</a>
+                      </li>
+                    @endforeach
+                  </ul>
+                </div>
+              @endforeach
+            </div>
           </div>
         </li>
       @endforeach

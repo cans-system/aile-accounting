@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $users = [
-            [1, '奥村 大地', 'okumuradaichi2007@gmail.com', 1, 1]
+            [1, '奥村 大地', 'okumura@example.com', 1, 1]
         ];
 
         foreach ($users as $user) {

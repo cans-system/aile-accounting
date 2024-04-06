@@ -3,9 +3,44 @@
 
 body {
   font-family: 'Roboto', 'Noto Sans JP', sans-serif;
+  background-color: #F2F2F2;
 }
 
 .bg-text-blue {
   background-color: #2f5597;
   color: #ffffff;
+}
+
+.table-lightblue th {
+  background-color: #B4C7E7;
+  font-weight: normal;
+}
+
+.button {
+  width: 160px;
+  background-color: #ffffff;
+  color: #000000;
+  border: 2px solid #7F7F7F;
+  display: block;
+}
+
+.button:hover {
+  background-color: #7F7F7F;
+  color: #ffffff;
+}
+
+.bdcb {
+  padding: .5rem;
+}
+
+.bdcb-child {
+  padding-inline: 1.5rem;
+  color: #2f5597;
+  text-decoration: none;
+}
+
+.bdcb-child.active {
+  background-color: #4472C4;
+  color: #ffffff;
+  border-radius: .375rem;
 }

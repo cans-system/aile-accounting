@@ -17,4 +17,32 @@ class AdminUserController extends Controller
             'users' => $users,
             'roles' => Role::all()
         ]);
-    }}
+    }
+
+    public function store (Request $request) {
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role_id = $request->role_id;
+        $user->password = $request->password;
+        $user->client_id = $request->user()->client_id;
+        $user->save();
+
+        return back()->with('toast', ['success', 'ユーザーを新規作成しました']);
+    }
+
+    public function update (Request $request, User $user) {
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role_id = $request->role_id;
+        $user->save();
+
+        return back()->with('toast', ['success', 'ユーザーを更新しました']);
+    }
+
+    public function destroy (Request $request, User $user) {
+        $user->delete();
+
+        return back()->with('toast', ['success', 'ユーザーを削除しました']);
+    }
+}

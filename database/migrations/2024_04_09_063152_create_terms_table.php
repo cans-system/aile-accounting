@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('terms', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->enum('group', ['実績', '将来情報']);
+            $table->string('month');
+            $table->enum('type', ['実績', '計画', '見込み', '予算']);
+            $table->enum('period', ['月次', '四半期', '年度']);
+            $table->foreignId('client_id')->constrained();
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('terms');
     }
 };

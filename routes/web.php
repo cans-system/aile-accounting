@@ -3,6 +3,9 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\MasterCompanyController;
+use App\Http\Controllers\MasterCurrencyController;
+use App\Http\Controllers\MasterDisclosedBusinessListController;
+use App\Http\Controllers\MasterTermController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,7 +42,21 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('master')->group(function () {
-        Route::resource('master', MasterCompanyController::class);
+        Route::resource('terms', MasterTermController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
+        Route::resource('companies', MasterCompanyController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
+        Route::resource('currencies', MasterCurrencyController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
+        Route::resource('rates', MasterRateController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
+        Route::resource('disclosed_business_lists', MasterDisclosedBusinessListController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
     });
 
     Route::prefix('admin')->group(function () {

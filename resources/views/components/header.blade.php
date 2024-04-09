@@ -47,7 +47,11 @@
                   <ul class="ps-4">
                     @foreach ($child[1] as $grandchild)
                       <li class="mb-1">
-                        <a class="text-decoration-none text-reset" href="{{ $page[1] }}{{ $grandchild[1] }}">{{ $grandchild[0] }}</a>
+                        @if ($grandchild[2])
+                          <a class="text-decoration-none text-reset" href="{{ $page[1] }}{{ $grandchild[1] }}">{{ $grandchild[0] }}</a>  
+                        @else
+                          <span class="opacity-25">{{ $grandchild[0] }}</span>
+                        @endif
                       </li>
                     @endforeach
                   </ul>

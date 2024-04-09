@@ -1,12 +1,8 @@
 <x-layout>
-  <div class="py-1 mb-3 border-bottom border-primary fw-bold d-flex">
-    <div class="bdcb">管理</div>
-    <div class="bdcb"><i class="fa-solid fa-angle-right"></i></div>
-    <div class="bdcb">ユーザー・ロール管理</div>
-    <div class="bdcb"><i class="fa-solid fa-angle-right"></i></div>
+  <x-breadcrumb grandparent="管理" parent="ユーザー・ロール管理">
     <a class="bdcb bdcb-child active">ユーザー管理</a>
     <a class="bdcb bdcb-child" href="/admin/roles">ロール管理</a>
-  </div>
+  </x-breadcrumb>
   <p>画面説明：ユーザー企業内のユーザーを管理できます</p>
   <div class="mb-4 d-flex gap-5">
     <button class="btn button" data-bs-toggle="modal" data-bs-target="#createUser">新規作成</button>
@@ -27,23 +23,13 @@
           <td>{{ $user->name }}</td>
           <td>{{ $user->email }}</td>
           <td>{{ $user->role->title }}</td>
-          <td>{{ $user->number_of_lines }}</td>
           <td>
-            <div class="dropdown">
-              <a class="text-decoration-none py-2 px-5 text-reset" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa-solid fa-ellipsis"></i>
-              </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" data-bs-toggle="modal" href="#editUser{{ $user->id }}">編集</a></li>
-                <li>
-                  <form action="/admin/users/{{ $user->id }}" method="post" onsubmit="return window.confirm('本当に削除しますか？\r\n削除を実行するとユーザーの保有する質問や予約などのデータが削除されます')">
-                    @csrf
-                    @method('DELETE')
-                    <button class="dropdown-item">削除</button>
-                  </form>
-                </li>
-              </ul>
-            </div>
+            {{ MyUtil::array_str($user->companies->pluck('title')->all(), '、') }}
+          </td>
+          <td>
+            <x-ellipsis
+            edit-modal-id="editUser{{ $user->id }}"
+            delete-action="/admin/users/{{ $user->id }}" />
           </td>
         </tr>
       @endforeach
@@ -71,6 +57,18 @@
             @endforeach
           </select>
         </div>
+        <div class="mb-3">
+          <label class="form-label">対象会社</label>
+          <select class="form-select" name="company_id_list[]" multiple>
+            @foreach ($companies as $company)
+            <option
+            value="{{ $company->id }}"
+            @selected($user->companies->pluck('id')->contains($company->id))>
+              {{ $company->title }}
+            </option>
+            @endforeach
+          </select>
+        </div>  
         <button type="submit" class="btn btn-primary">更新</button>
       </form>
     </x-modal>   
@@ -96,10 +94,18 @@
         </select>
       </div>
       <div class="mb-3">
+        <label class="form-label">対象会社</label>
+        <select class="form-select" name="company_id_list[]" multiple>
+          @foreach ($companies as $company)
+          <option value="{{ $company->id }}">{{ $company->title }}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="mb-3">
         <label class="form-label">パスワード</label>
         <input type="password" name="password" class="form-control" required>
       </div>
-      <button type="submit" class="btn btn-primary">更新</button>
+      <button type="submit" class="btn btn-primary">作成</button>
     </form>
   </x-modal>   
 </x-layout>

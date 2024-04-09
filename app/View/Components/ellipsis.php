@@ -6,12 +6,15 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class watchonadmin extends Component
+class ellipsis extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(
+        public $editModalId,
+        public $deleteAction
+    )
     {
         //
     }
@@ -21,6 +24,6 @@ class watchonadmin extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.watchonadmin');
+        return view('components.ellipsis');
     }
 }

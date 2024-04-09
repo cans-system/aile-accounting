@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ class AdminUserController extends Controller
         
         return view('pages.admin.users', [
             'users' => $users,
-            'roles' => Role::all()
+            'roles' => Role::where('client_id', $request->user()->client_id)->get(),
+            'companies' => Company::where('client_id', $request->user()->client_id)->get(),
         ]);
     }
 
@@ -27,6 +29,8 @@ class AdminUserController extends Controller
         $user->password = $request->password;
         $user->client_id = $request->user()->client_id;
         $user->save();
+        
+        $user->companies()->sync($request->company_id_list);
 
         return back()->with('toast', ['success', 'ユーザーを新規作成しました']);
     }
@@ -36,6 +40,8 @@ class AdminUserController extends Controller
         $user->email = $request->email;
         $user->role_id = $request->role_id;
         $user->save();
+
+        $user->companies()->sync($request->company_id_list);
 
         return back()->with('toast', ['success', 'ユーザーを更新しました']);
     }

@@ -1,13 +1,10 @@
 <x-layout>
-  <x-breadcrumb grandparent="管理" parent="ユーザー・ロール管理">
-    <a class="bdcb bdcb-child active">ユーザー管理</a>
-    <a class="bdcb bdcb-child" href="/admin/roles">ロール管理</a>
-  </x-breadcrumb>
+  <x-breadcrumb />
   <p>画面説明：ユーザー企業内のユーザーを管理できます</p>
   <div class="mb-4 d-flex gap-5">
     <button class="btn button" data-bs-toggle="modal" data-bs-target="#createUser">新規作成</button>
   </div>
-  <table class="table table-bordered border-secondary w-auto">
+  <x-table>
     <thead>
       <tr class="table-lightblue">
         <th>ユーザー名</th>
@@ -29,16 +26,16 @@
           <td>
             <x-ellipsis
             edit-modal-id="editUser{{ $user->id }}"
-            delete-action="/admin/users/{{ $user->id }}" />
+            delete-action="/management/users/{{ $user->id }}" />
           </td>
         </tr>
       @endforeach
     </tbody>
-  </table>
+  </x-table>
   
   @foreach ($users as $user)
     <x-modal id="editUser{{ $user->id }}" title="編集">
-      <form action="/admin/users/{{ $user->id }}" method="post">
+      <form action="/management/users/{{ $user->id }}" method="post">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -75,7 +72,7 @@
   @endforeach
 
   <x-modal id="createUser" title="新規作成">
-    <form action="/admin/users" method="post">
+    <form action="/management/users" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">ユーザー名</label>

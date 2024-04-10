@@ -1,10 +1,19 @@
 <?php
 namespace App\Libs;
 
+use App\Models\BigGroup;
 use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 
 class MyUtil {
+  public static function get_all_big_groups() {
+    return BigGroup::all();
+  }
+
+  public static function get_page($id) {
+    return Page::find($id);
+  }
+
   public static function url_param_change($par=Array(),$op=0) {
     $url = parse_url($_SERVER["REQUEST_URI"]);
     if(isset($url["query"])) parse_str($url["query"],$query);

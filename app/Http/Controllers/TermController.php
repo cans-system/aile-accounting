@@ -6,7 +6,7 @@ use App\Models\Term;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class MasterTermController extends Controller
+class TermController extends Controller
 {
     public function index (Request $request) {
         $terms = $request->user()->client->terms;

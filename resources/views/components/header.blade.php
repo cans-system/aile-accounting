@@ -6,7 +6,7 @@
           AILE system
         </a>
       </h1>
-      <ul class="d-flex gap-4 list-unstyled mb-0">
+      <ul class="d-flex align-items-center gap-4 list-unstyled mb-0">
         <li>
           <a class="text-decoration-none p-2 text-reset" href="{{ url()->current() }}" target="_blank">
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
@@ -33,24 +33,27 @@
         </li>
         <li><a class="text-decoration-none p-2 text-reset" href="">設定</a></li>
         <li><a class="text-decoration-none p-2 text-reset" href="">サポート</a></li>
+        <li><a class="btn btn-light btn-sm" href="/admin/clients">ユーザー企業一覧</a></li>
       </ul>
     </div>
     <ul class="d-flex gap-4 list-unstyled mb-0">
-      @foreach (config('app.pages') as $page)
+      @foreach (MyUtil::get_all_big_groups() as $big_group)
         <li class="position-relative hover">
-          <a class="text-decoration-none p-2 text-reset d-block" role="button">{{ $page[0] }}</a>
+          <a class="text-decoration-none p-2 text-reset d-block" role="button">{{ $big_group->title }}</a>
           <div class="position-absolute top-100 bg-text-blue p-3 hover-list z-1" style="width: 900px; display: none;">
             <div class="" style="column-count: 3;">
-              @foreach ($page[2] as $child)
+              @foreach ($big_group->small_groups as $small_group)
                 <div class="col mb-4" style="break-inside: avoid;">
-                  <h5>{{ $child[0] }}</h5>
+                  <h5>{{ $small_group->title }}</h5>
                   <ul class="ps-4">
-                    @foreach ($child[1] as $grandchild)
+                    @foreach ($small_group->pages as $pages)
                       <li class="mb-1">
-                        @if ($grandchild[2])
-                          <a class="text-decoration-none text-reset" href="{{ $page[1] }}{{ $grandchild[1] }}">{{ $grandchild[0] }}</a>  
+                        @if ($pages->enabled)
+                          <a class="text-decoration-none text-reset" href="/{{ $big_group->path }}/{{ $pages->path }}">
+                            {{ $pages->title }}
+                          </a>  
                         @else
-                          <span class="opacity-25">{{ $grandchild[0] }}</span>
+                          <span class="opacity-25">{{ $pages->title }}</span>
                         @endif
                       </li>
                     @endforeach

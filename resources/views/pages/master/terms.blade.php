@@ -1,12 +1,10 @@
 <x-layout>
-  <x-breadcrumb grandparent="マスタ設定" parent="会計期間マスタ">
-    <a class="bdcb bdcb-child active">会計期間マスタ</a>
-  </x-breadcrumb>
+  <x-breadcrumb />
   <p>画面説明：会計期間を設定する画面です。</p>
   <div class="mb-4 d-flex gap-5">
     <button class="btn button" data-bs-toggle="modal" data-bs-target="#createModal">新規作成</button>
   </div>
-  <table class="table table-bordered border-secondary w-auto">
+  <x-table>
     <thead>
       <tr class="table-lightblue">
         <th>分類</th>
@@ -33,7 +31,7 @@
         </tr>
       @endforeach
     </tbody>
-  </table>
+  </x-table>
   
   @foreach ($terms as $term)
     <x-modal id="editModal{{ $term->id }}" title="編集">

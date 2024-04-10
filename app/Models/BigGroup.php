@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Page extends Model
+class BigGroup extends Model
 {
     use HasFactory;
 
-    public function small_group() {
-        return $this->belongsTo(SmallGroup::class);
+    public function small_groups() {
+        return $this->hasMany(SmallGroup::class);
     }
 }

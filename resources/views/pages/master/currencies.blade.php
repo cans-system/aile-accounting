@@ -1,14 +1,10 @@
 <x-layout>
-  <x-breadcrumb grandparent="マスタ設定" parent="外貨換算関連マスタ">
-    <a class="bdcb bdcb-child active">通貨マスタ</a>
-    <a class="bdcb bdcb-child">換算レート設定マスタ</a>
-    <a class="bdcb bdcb-child">外貨修正仕訳分類マスタ</a>
-  </x-breadcrumb>
+  <x-breadcrumb />
   <p>画面説明：xxxxx</p>
   <div class="mb-4 d-flex gap-5">
     <button class="btn button" data-bs-toggle="modal" data-bs-target="#createModal">新規作成</button>
   </div>
-  <table class="table table-bordered border-secondary w-auto">
+  <x-table>
     <thead>
       <tr class="table-lightblue">
         <th>ID</th>
@@ -29,7 +25,7 @@
         </tr>
       @endforeach
     </tbody>
-  </table>
+  </x-table>
   
   @foreach ($currencies as $currency)
     <x-modal id="editModal{{ $currency->id }}" title="編集">

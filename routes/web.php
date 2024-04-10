@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\MasterBusinessController;
-use App\Http\Controllers\MasterCompanyController;
-use App\Http\Controllers\MasterCurrencyController;
-use App\Http\Controllers\MasterDisclosedBusinessListController;
-use App\Http\Controllers\MasterTermController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\DisclosedBusinessListController;
+use App\Http\Controllers\TermController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,28 +44,34 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('master')->group(function () {
-        Route::resource('terms', MasterTermController::class)->only([
+        Route::resource('terms', TermController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
-        Route::resource('companies', MasterCompanyController::class)->only([
+        Route::resource('companies', CompanyController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
-        Route::resource('currencies', MasterCurrencyController::class)->only([
+        Route::resource('currencies', CurrencyController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
-        Route::resource('rates', MasterRateController::class)->only([
+        Route::resource('rates', RateController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
-        Route::resource('businesses', MasterBusinessController::class)->only([
+        Route::resource('businesses', BusinessController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
-        Route::resource('disclosed_business_lists', MasterDisclosedBusinessListController::class)->only([
+        Route::resource('disclosed_business_lists', DisclosedBusinessListController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
+    });
+
+    Route::prefix('management')->group(function () {
+        Route::resource('users', UserController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
     });
 
     Route::prefix('admin')->group(function () {
-        Route::resource('users', AdminUserController::class)->only([
+        Route::resource('clients', ClientController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
     });

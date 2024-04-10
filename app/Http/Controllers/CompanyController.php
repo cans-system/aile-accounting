@@ -6,12 +6,12 @@ use App\Models\Company;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 
-class MasterCompanyController extends Controller
+class CompanyController extends Controller
 {
     public function index (Request $request) {
         $companies = $request->user()->client->companies;
         $currencies = $request->user()->client->currencies;
-        return view('pages.master.company', [
+        return view('pages.master.companies', [
             'companies' => $companies,
             'currencies' => $currencies
         ]);

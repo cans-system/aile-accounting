@@ -1,13 +1,10 @@
 <x-layout>
-  <x-breadcrumb grandparent="マスタ設定" parent="会社マスタ">
-    <a class="bdcb bdcb-child active">会社マスタ</a>
-    <a class="bdcb bdcb-child">連結範囲マスタ</a>
-  </x-breadcrumb>
+  <x-breadcrumb />
   <p>画面説明：xxxxx</p>
   <div class="mb-4 d-flex gap-5">
     <button class="btn button" data-bs-toggle="modal" data-bs-target="#createCompany">新規作成</button>
   </div>
-  <table class="table table-bordered border-secondary w-auto">
+  <x-table>
     <thead>
       <tr class="table-lightblue">
         <th>ID</th>
@@ -32,7 +29,7 @@
         </tr>
       @endforeach
     </tbody>
-  </table>
+  </x-table>
   
   @foreach ($companies as $company)
     <x-modal id="editModal{{ $company->id }}" title="編集">

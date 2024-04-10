@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class DisclosedBusinessList extends Model
 {
     use HasFactory;
+
+    public function businesses() {
+        return $this->hasMany(Business::class);
+    }
 }

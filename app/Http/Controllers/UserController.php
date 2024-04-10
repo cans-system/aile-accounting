@@ -7,12 +7,12 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AdminUserController extends Controller
+class UserController extends Controller
 {
     public function index (Request $request) {
         $users = $request->user()->client->users;
         
-        return view('pages.admin.users', [
+        return view('pages.management.users', [
             'users' => $users,
             'roles' => Role::where('client_id', $request->user()->client_id)->get(),
             'companies' => Company::where('client_id', $request->user()->client_id)->get(),

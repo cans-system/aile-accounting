@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\DisclosedBusinessList;
 use Illuminate\Http\Request;
 
-class MasterDisclosedBusinessListController extends Controller
+class DisclosedBusinessListController extends Controller
 {
     public function index (Request $request) {
         $lists = DisclosedBusinessList::where('client_id', $request->user()->client_id)->get();
-        return view('pages.master.disclosed_business_list', [
+        return view('pages.master.disclosed_business_lists', [
             'lists' => $lists
         ]);
     }

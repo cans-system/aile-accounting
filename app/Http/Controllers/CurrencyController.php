@@ -6,11 +6,11 @@ use App\Models\Currency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class MasterCurrencyController extends Controller
+class CurrencyController extends Controller
 {
     public function index (Request $request) {
         $currencies = $request->user()->client->currencies;
-        return view('pages.master.currency', [
+        return view('pages.master.currencies', [
             'currencies' => $currencies
         ]);
     }

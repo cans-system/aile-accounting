@@ -7,12 +7,12 @@ use App\Models\DisclosedBusinessList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class MasterBusinessController extends Controller
+class BusinessController extends Controller
 {
     public function index (Request $request) {
         $businesses = $request->user()->client->businesses;
         $lists = DisclosedBusinessList::where('client_id', $request->user()->client_id)->get();
-        return view('pages.master.business', [
+        return view('pages.master.businesses', [
             'businesses' => $businesses,
             'lists' => $lists
         ]);

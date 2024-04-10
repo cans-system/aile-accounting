@@ -14,7 +14,7 @@
       <tr class="table-lightblue">
         <th>ID</th>
         <th>開示セグメント名称</th>
-        <th>有効/無効</th>
+        <th>有効/利用不可</th>
         <th>操作</th>
       </tr>
     </thead>
@@ -27,7 +27,7 @@
             @if ($list->enabled)
               有効
             @else
-              無効
+              利用不可
             @endif
           </td>
           <td>
@@ -50,15 +50,8 @@
           <input type="text" name="title" value="{{ $list->title }}" class="form-control" required>
         </div>
         <div class="mb-3">
-          <label class="form-label">有効/無効</label>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="enabled" value="1" id="enabled" @checked($list->enabled)>
-            <label class="form-check-label" for="enabled">有効</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="enabled" value="0" id="disabled" @checked(!$list->enabled)>
-            <label class="form-check-label" for="disabled">無効</label>
-          </div>
+          <label class="form-label">有効/利用不可</label>
+          <x-enabled :enabled="$list->enabled" />
         </div>  
         <button type="submit" class="btn btn-primary">更新</button>
       </form>
@@ -73,15 +66,8 @@
         <input type="text" name="title" class="form-control" required>
       </div>
       <div class="mb-3">
-        <label class="form-label">有効/無効</label>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="enabled" value="1" id="enabled" checked>
-          <label class="form-check-label" for="enabled">有効</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="enabled" id="disabled">
-          <label class="form-check-label" for="disabled">無効</label>
-        </div>
+        <label class="form-label">有効/利用不可</label>
+        <x-enabled />
       </div>
       <button type="submit" class="btn btn-primary">作成</button>
     </form>

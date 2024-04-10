@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class RoleSeeder extends Seeder
 {
@@ -13,21 +13,21 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = [
-            [1, 'システム管理者', 1],
-            [2, '親会社担当者', 1],
-            [3, '親会社承認者', 1],
-            [4, '子会社担当者', 1],
-            [5, '子会社承認者', 1],
-            [6, '監査', 1]
+        $colection = [
+            [1, 'システム管理者'],
+            [2, '親会社担当者'],
+            [3, '親会社承認者'],
+            [4, '子会社担当者'],
+            [5, '子会社承認者'],
+            [6, '監査']
         ];
 
-        foreach ($roles as $role) {
-            DB::table('roles')->insert([
-                'id' => $role[0],
-                'title' => $role[1],
-                'client_id' => $role[2]
-            ]);
+        foreach ($colection as $item) {
+            $role = new Role();
+            $role->id = $item[0];
+            $role->title = $item[1];
+            $role->client_id = 1;
+            $role->save();
         }
     }
 }

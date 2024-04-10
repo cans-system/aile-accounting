@@ -4,7 +4,7 @@
   </x-breadcrumb>
   <p>画面説明：会計期間を設定する画面です。</p>
   <div class="mb-4 d-flex gap-5">
-    <button class="btn button" data-bs-toggle="modal" data-bs-target="#createTerm">新規作成</button>
+    <button class="btn button" data-bs-toggle="modal" data-bs-target="#createModal">新規作成</button>
   </div>
   <table class="table table-bordered border-secondary w-auto">
     <thead>
@@ -27,7 +27,7 @@
           <td>{{ $term->period }}</td>
           <td>
             <x-ellipsis
-            edit-modal-id="editTerm{{ $term->id }}"
+            edit-modal-id="editModal{{ $term->id }}"
             delete-action="/master/terms/{{ $term->id }}" />
           </td>
         </tr>
@@ -36,7 +36,7 @@
   </table>
   
   @foreach ($terms as $term)
-    <x-modal id="editTerm{{ $term->id }}" title="編集">
+    <x-modal id="editModal{{ $term->id }}" title="編集">
       <form action="/master/terms/{{ $term->id }}" method="post">
         @csrf
         @method('PUT')
@@ -72,7 +72,7 @@
     </x-modal>   
   @endforeach
 
-  <x-modal id="createTerm" title="新規作成">
+  <x-modal id="createModal" title="新規作成">
     <form action="/master/terms" method="post">
       @csrf
       <div class="mb-3">

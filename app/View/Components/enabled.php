@@ -6,12 +6,15 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class nocontent extends Component
+class enabled extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(
+        public bool $enabled=true,
+        public string $name='enabled'
+    )
     {
         //
     }
@@ -21,6 +24,6 @@ class nocontent extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.nocontent');
+        return view('components.enabled');
     }
 }

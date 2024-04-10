@@ -1,1 +1,0 @@
-<div class="text-center py-2 rounded border mb-2">{{ $slot }}</div>

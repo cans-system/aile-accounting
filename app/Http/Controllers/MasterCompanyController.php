@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 class MasterCompanyController extends Controller
 {
     public function index (Request $request) {
-        $companies = Company::where('client_id', $request->user()->client_id)->get();
-        $currencies = Currency::where('client_id', $request->user()->client_id)->get();
+        $companies = $request->user()->client->companies;
+        $currencies = $request->user()->client->currencies;
         return view('pages.master.company', [
             'companies' => $companies,
             'currencies' => $currencies

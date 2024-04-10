@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('businesses', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->boolean('enabled');
             $table->foreignId('disclosed_business_list_id')->constrained();
             $table->timestamps();
         });

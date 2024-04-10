@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,21 +16,21 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = [
-            [1, '奥村 大地', 'okumura@example.com', 1, 1]
+        $collection = [
+            [1, '奥村 大地', 'okumura@example.com', 1]
         ];
 
-        foreach ($users as $user) {
-            DB::table('users')->insert([
-                'id' => $user[0],
-                'name' => $user[1],
-                'email' => $user[2],
-                'email_verified_at' => now(),
-                'password' => Hash::make('password'),
-                'remember_token' => Str::random(10),
-                'role_id' => $user[3],
-                'client_id' => $user[4],
-            ]);
+        foreach ($collection as $item) {
+            $user = new User();
+            $user->id = $item[0];
+            $user->name = $item[1];
+            $user->email = $item[2];
+            $user->email_verified_at = now();
+            $user->password = Hash::make('password');
+            $user->remember_token = Str::random(10);
+            $user->role_id = $item[3];
+            $user->client_id = 1;
+            $user->save();
         }
     }
 }

@@ -10,9 +10,7 @@ use Illuminate\Http\Request;
 class AdminUserController extends Controller
 {
     public function index (Request $request) {
-        $users = User::
-        where('client_id', $request->user()->client->id)
-        ->get();
+        $users = $request->user()->client->users;
         
         return view('pages.admin.users', [
             'users' => $users,

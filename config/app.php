@@ -21,7 +21,7 @@ return [
                 ['科目集計設定マスタ', '/terms', false]
             ]],
             ['セグメント関連マスタ', [
-                ['事業セグメントマスタ', '/business', false],
+                ['事業セグメントマスタ', '/businesses', true],
                 ['開示セグメントマスタ', '/disclosed_business_lists', true],
                 ['会社-事業 セグメント紐づけマスタ', '/company_business', false],
                 ['セグメント報告集計対象マスタ', '/terms', false]

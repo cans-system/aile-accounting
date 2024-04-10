@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class MasterCurrencyController extends Controller
 {
     public function index (Request $request) {
-        $currencies = Currency::where('client_id', $request->user()->client_id)->get();
+        $currencies = $request->user()->client->currencies;
         return view('pages.master.currency', [
             'currencies' => $currencies
         ]);

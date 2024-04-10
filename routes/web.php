@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\MasterBusinessController;
 use App\Http\Controllers\MasterCompanyController;
 use App\Http\Controllers\MasterCurrencyController;
 use App\Http\Controllers\MasterDisclosedBusinessListController;
@@ -52,6 +53,9 @@ Route::middleware(['auth'])->group(function () {
             'index', 'store', 'update', 'destroy'
         ]);
         Route::resource('rates', MasterRateController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
+        Route::resource('businesses', MasterBusinessController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
         Route::resource('disclosed_business_lists', MasterDisclosedBusinessListController::class)->only([

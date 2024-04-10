@@ -26,7 +26,7 @@
           <td>{{ $company->currency->title }}</td>
           <td>
             <x-ellipsis
-            edit-modal-id="editCompany{{ $company->id }}"
+            edit-modal-id="editModal{{ $company->id }}"
             delete-action="/master/companies/{{ $company->id }}" />
           </td>
         </tr>
@@ -35,7 +35,7 @@
   </table>
   
   @foreach ($companies as $company)
-    <x-modal id="editCompany{{ $company->id }}" title="編集">
+    <x-modal id="editModal{{ $company->id }}" title="編集">
       <form action="/master/companies/{{ $company->id }}" method="post">
         @csrf
         @method('PUT')

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class MasterTermController extends Controller
 {
     public function index (Request $request) {
-        $terms = Term::where('client_id', $request->user()->client_id)->get();
+        $terms = $request->user()->client->terms;
         return view('pages.master.terms', [
             'terms' => $terms
         ]);

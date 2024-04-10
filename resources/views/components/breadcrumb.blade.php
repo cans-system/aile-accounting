@@ -11,3 +11,4 @@
 		@endif
 	@endforeach
 </div>
+{{ dd(explode('/', substr(parse_url(url()->current())['path'], 1))) }}

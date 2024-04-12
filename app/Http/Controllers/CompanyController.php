@@ -11,9 +11,11 @@ class CompanyController extends Controller
     public function index (Request $request) {
         $companies = $request->user()->client->companies;
         $currencies = $request->user()->client->currencies;
+        $businesses = $request->user()->client->businesses;
         return view('pages.master.companies', [
             'companies' => $companies,
-            'currencies' => $currencies
+            'currencies' => $currencies,
+            'businesses' => $businesses
         ]);
     }
 
@@ -22,8 +24,11 @@ class CompanyController extends Controller
         $company->title = $request->title;
         $company->fiscal_month = $request->fiscal_month;
         $company->currency_id = $request->currency_id;
+        $company->business_id = $request->business_id;
         $company->client_id = $request->user()->client_id;
         $company->save();
+
+        $company->businesses()->sync($request->business_id_list);
 
         return back()->with('toast', ['success', '会社を新規作成しました']);
     }
@@ -32,7 +37,10 @@ class CompanyController extends Controller
         $company->title = $request->title;
         $company->fiscal_month = $request->fiscal_month;
         $company->currency_id = $request->currency_id;
+        $company->business_id = $request->business_id;
         $company->save();
+
+        $company->businesses()->sync($request->business_id_list);
 
         return back()->with('toast', ['success', '会社を更新しました']);
     }

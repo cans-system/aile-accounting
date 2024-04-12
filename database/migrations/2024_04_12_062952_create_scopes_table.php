@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('scopes', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->integer('fiscal_month');
-            $table->foreignId('currency_id')->constrained();
-            $table->foreignId('client_id')->constrained();
-            $table->foreignId('business_id')->constrained();
+            $table->foreignId('term_id')->constrained();
+            $table->foreignId('company_id')->constrained();
+            $table->enum('relation', ['親会社', '連結子会社', '持分法適用会社', '非連結会社']);
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('scopes');
     }
 };

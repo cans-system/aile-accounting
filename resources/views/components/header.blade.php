@@ -12,7 +12,30 @@
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
         </li>
-        <li><a class="text-decoration-none p-2 text-reset" href="">0000年00月期第0四半期</a></li>
+        <li>
+          <div class="dropdown">
+            <a class="text-decoration-none p-2 text-reset dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              @if ($selected_term = Session::get('selected_term'))
+                {{ date('Y年n月期', strtotime($selected_term->month)) }}_{{ $selected_term->type }}
+              @else
+                会計期間が選択されていません
+              @endif
+            </a>
+            <ul class="dropdown-menu">
+              @foreach (Auth::user()->client->terms as $term)
+                <li>
+                  <form action="/change_term" method="post">
+                    @csrf
+                    <input type="hidden" name="term_id" value="{{ $term->id }}">
+                    <button class="dropdown-item">
+                      {{ date('Y年n月期', strtotime($term->month)) }}_{{ $term->type }}
+                    </button>
+                  </form>
+                </li>
+              @endforeach
+            </ul>
+          </div>
+        </li>
         <li><a class="text-decoration-none p-2 text-reset" href="">{{ request()->user()->client->title }}</a></li>
         <li>
           <div class="dropdown">
@@ -25,7 +48,7 @@
 							<li>
 								<form action="/logout" method="post">
 									@csrf
-									<button class="dropdown-item" href="/logout">ログアウト</button>
+									<button class="dropdown-item">ログアウト</button>
 								</form>
 							</li>
             </ul>
@@ -37,7 +60,7 @@
       </ul>
     </div>
     <ul class="d-flex gap-4 list-unstyled mb-0">
-      @foreach (MyUtil::get_all_big_groups() as $big_group)
+      @foreach ($big_groups as $big_group)
         <li class="position-relative hover">
           <a class="text-decoration-none p-2 text-reset d-block" role="button">{{ $big_group->title }}</a>
           <div class="position-absolute top-100 bg-text-blue p-3 hover-list z-1" style="width: 900px; display: none;">

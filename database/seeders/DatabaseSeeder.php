@@ -62,14 +62,19 @@ class DatabaseSeeder extends Seeder
 
         $client->currencies()->save(new Currency(['title' => '日本円']));
 
-        $client->companies()->save(new Company(['title' => '奥村建設', 'fiscal_month' => 3, 'currency_id' => 1]));
-        
         $disclosed_business_list = $client->disclosed_business_lists()->save(
             new DisclosedBusinessList(['title' => 'AAセグメント', 'enabled' => true])
         );
         
-        $disclosed_business_list->businesses()->save(
+        $business = $disclosed_business_list->businesses()->save(
             new Business(['title' => 'A1セグメント', 'enabled' => true])
         );
+
+        $client->companies()->save(new Company([
+            'title' => '奥村建設',
+            'fiscal_month' => 3,
+            'currency_id' => 1,
+            'business_id' => $business->id
+        ]));
     }
 }

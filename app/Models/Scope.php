@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Term extends Model
+class Scope extends Model
 {
     use HasFactory;
 
-    public function scopes() {
-        return $this->hasMany(Scope::class);
+    public function company() {
+        return $this->belongsTo(Company::class);
     }
 }

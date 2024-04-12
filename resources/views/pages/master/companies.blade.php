@@ -11,6 +11,7 @@
         <th>会社名</th>
         <th>決算月</th>
         <th>通貨</th>
+        <th>対象事業セグメント</th>
         <th>操作</th>
       </tr>
     </thead>
@@ -21,6 +22,9 @@
           <td>{{ $company->title }}</td>
           <td>{{ $company->fiscal_month }}月</td>
           <td>{{ $company->currency->title }}</td>
+          <td>
+            {{ MyUtil::array_str($company->businesses->pluck('title')->all(), '、') }}
+          </td>
           <td>
             <x-ellipsis
             edit-modal-id="editModal{{ $company->id }}"
@@ -81,6 +85,22 @@
         <select class="form-select" name="currency_id">
           @foreach ($currencies as $currency)
             <option value="{{ $currency->id }}">{{ $currency->title }}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">対象事業セグメント</label>
+        <select class="form-select" name="business_id_list[]" multiple>
+          @foreach ($businesses as $business)
+          <option value="{{ $business->id }}">{{ $business->title }}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">デフォルトセグメント</label>
+        <select class="form-select" name="business_id" multiple>
+          @foreach ($businesses as $business)
+          <option value="{{ $business->id }}">{{ $business->title }}</option>
           @endforeach
         </select>
       </div>

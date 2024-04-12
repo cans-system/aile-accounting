@@ -4,9 +4,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CompanyBusinessController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DisclosedBusinessListController;
+use App\Http\Controllers\ScopeController;
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TermController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
+    Route::post('/change_term', [SessionController::class, 'change_term']);
+
     Route::get('/', function () {
         return redirect('/home');
     });
@@ -50,6 +56,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('companies', CompanyController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
+        Route::resource('scopes', ScopeController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
         Route::resource('currencies', CurrencyController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
@@ -60,6 +69,9 @@ Route::middleware(['auth'])->group(function () {
             'index', 'store', 'update', 'destroy'
         ]);
         Route::resource('disclosed_business_lists', DisclosedBusinessListController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
+        Route::resource('company_business', CompanyBusinessController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
     });

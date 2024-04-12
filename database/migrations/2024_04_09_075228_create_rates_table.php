@@ -16,6 +16,7 @@ return new class extends Migration
             $table->float('last_day_rate');
             $table->float('average_rate');
             $table->foreignId('currency_id')->constrained();
+            $table->foreignId('term_id')->constrained();
             $table->timestamps();
         });
     }

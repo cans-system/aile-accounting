@@ -11,11 +11,12 @@ class UserController extends Controller
 {
     public function index (Request $request) {
         $users = $request->user()->client->users;
-        
+        $roles = $request->user()->client->roles;
+        $companies = $request->user()->client->companies;
         return view('pages.management.users', [
             'users' => $users,
-            'roles' => Role::where('client_id', $request->user()->client_id)->get(),
-            'companies' => Company::where('client_id', $request->user()->client_id)->get(),
+            'roles' => $roles,
+            'companies' => $companies,
         ]);
     }
 

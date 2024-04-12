@@ -17,7 +17,7 @@ class Company extends Model
         return $this->belongsToMany(Business::class, 'company_business');
     }
 
-    public function default_business() {
+    public function business() {
         return $this->belongsTo(Business::class);
     }
 }

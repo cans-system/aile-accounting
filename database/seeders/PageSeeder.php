@@ -22,23 +22,23 @@ class PageSeeder extends Seeder
                 ]],
                 ['会社マスタ', [
                     ['会社マスタ', 'companies', true],
-                    ['連結範囲マスタ', 'scopes', false]
+                    ['連結範囲マスタ', 'scopes', true]
                 ]],
                 ['勘定科目関連マスタ', [
-                    ['科目分類マスタ', 'categories', false],
-                    ['勘定科目マスタ', 'accounts', false],
-                    ['開示科目マスタ', 'disclosed_account_lists', false],
+                    ['科目分類マスタ', 'categories', true],
+                    ['勘定科目マスタ', 'accounts', true],
+                    ['開示科目マスタ', 'disclosed_account_lists', true],
                     ['科目集計設定マスタ', 'terms', false]
                 ]],
                 ['セグメント関連マスタ', [
                     ['事業セグメントマスタ', 'businesses', true],
                     ['開示セグメントマスタ', 'disclosed_business_lists', true],
-                    ['会社-事業 セグメント紐づけマスタ', 'company_business', false],
+                    ['会社-事業 セグメント紐づけマスタ', 'company_business', true],
                     ['セグメント報告集計対象マスタ', 'terms', false]
                 ]],
                 ['外貨換算関連マスタ', [
                     ['通貨マスタ', 'currencies', true],
-                    ['換算レート設定マスタ', 'rates', false],
+                    ['換算レート設定マスタ', 'rates', true],
                     ['外貨修正仕訳分類マスタ', 'terms', false]
                 ]],
                 ['連結仕訳関連マスタ', [
@@ -71,7 +71,7 @@ class PageSeeder extends Seeder
             ['管理', 'management', [
                 ['ユーザー・ロール管理', [
                     ['ユーザー管理', 'users', true],
-                    ['ロール管理', 'roles', false]
+                    ['ロール管理', 'roles', true]
                 ]]
             ]]
         ];

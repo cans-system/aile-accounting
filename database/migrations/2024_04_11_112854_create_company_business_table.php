@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id')->constrained();
             $table->foreignId('business_id')->constrained();
-            $table->boolean('default');
             $table->timestamps();
         });
     }

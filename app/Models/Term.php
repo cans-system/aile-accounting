@@ -12,4 +12,8 @@ class Term extends Model
     public function scopes() {
         return $this->hasMany(Scope::class);
     }
+
+    public function rates() {
+        return $this->hasMany(Rate::class);
+    }
 }

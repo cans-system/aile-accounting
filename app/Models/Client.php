@@ -21,6 +21,15 @@ class Client extends Model
     public function companies() {
         return $this->hasMany(Company::class);
     }
+    public function categories() {
+        return $this->hasMany(Category::class);
+    }
+    public function disclosed_account_lists() {
+        return $this->hasMany(DisclosedAccountList::class);
+    }
+    public function accounts() {
+        return $this->hasManyThrough(Account::class, Category::class);
+    }
     public function currencies() {
         return $this->hasMany(Currency::class);
     }

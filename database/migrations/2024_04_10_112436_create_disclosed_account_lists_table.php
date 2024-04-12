@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('disclosed_account_lists', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->foreignId('client_id')->constrained();
             $table->timestamps();
         });
     }

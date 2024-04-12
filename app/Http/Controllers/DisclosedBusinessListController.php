@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class DisclosedBusinessListController extends Controller
 {
     public function index (Request $request) {
-        $lists = DisclosedBusinessList::where('client_id', $request->user()->client_id)->get();
+        $lists = $request->user()->client->disclosed_business_lists;
         return view('pages.master.disclosed_business_lists', [
             'lists' => $lists
         ]);

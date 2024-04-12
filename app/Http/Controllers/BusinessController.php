@@ -11,7 +11,7 @@ class BusinessController extends Controller
 {
     public function index (Request $request) {
         $businesses = $request->user()->client->businesses;
-        $lists = DisclosedBusinessList::where('client_id', $request->user()->client_id)->get();
+        $lists = $request->user()->client->disclosed_business_lists;
         return view('pages.master.businesses', [
             'businesses' => $businesses,
             'lists' => $lists

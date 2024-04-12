@@ -1,14 +1,19 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyBusinessController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\DisclosedAccountListController;
 use App\Http\Controllers\DisclosedBusinessListController;
+use App\Http\Controllers\RateController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScopeController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TermController;
@@ -59,6 +64,15 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('scopes', ScopeController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
+        Route::resource('categories', CategoryController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
+        Route::resource('accounts', AccountController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
+        Route::resource('disclosed_account_lists', DisclosedAccountListController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
         Route::resource('currencies', CurrencyController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
@@ -71,13 +85,13 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('disclosed_business_lists', DisclosedBusinessListController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
-        Route::resource('company_business', CompanyBusinessController::class)->only([
-            'index', 'store', 'update', 'destroy'
-        ]);
     });
 
     Route::prefix('management')->group(function () {
         Route::resource('users', UserController::class)->only([
+            'index', 'store', 'update', 'destroy'
+        ]);
+        Route::resource('roles', RoleController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
     });

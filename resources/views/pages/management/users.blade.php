@@ -2,7 +2,7 @@
   <x-breadcrumb />
   <p>画面説明：ユーザー企業内のユーザーを管理できます</p>
   <div class="mb-4 d-flex gap-5">
-    <button class="btn button" data-bs-toggle="modal" data-bs-target="#createUser">新規作成</button>
+    <button class="btn button" data-bs-toggle="modal" data-bs-target="#createModal">新規作成</button>
   </div>
   <x-table>
     <thead>
@@ -25,7 +25,7 @@
           </td>
           <td>
             <x-ellipsis
-            edit-modal-id="editUser{{ $user->id }}"
+            edit-modal-id="editModal{{ $user->id }}"
             delete-action="/management/users/{{ $user->id }}" />
           </td>
         </tr>
@@ -34,7 +34,7 @@
   </x-table>
   
   @foreach ($users as $user)
-    <x-modal id="editUser{{ $user->id }}" title="編集">
+    <x-modal id="editModal{{ $user->id }}" title="編集">
       <form action="/management/users/{{ $user->id }}" method="post">
         @csrf
         @method('PUT')
@@ -71,7 +71,7 @@
     </x-modal>   
   @endforeach
 
-  <x-modal id="createUser" title="新規作成">
+  <x-modal id="createModal" title="新規作成">
     <form action="/management/users" method="post">
       @csrf
       <div class="mb-3">

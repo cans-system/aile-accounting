@@ -1,3 +1,5 @@
+@props(['editModalId', 'deleteAction'])
+
 <div class="dropdown">
   <a class="text-decoration-none py-2 px-5 text-reset" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <i class="fa-solid fa-ellipsis"></i>

@@ -13,10 +13,12 @@ class breadcrumb extends Component
     /**
      * Create a new component instance.
      */
+    public Page $page;
 
-    public function __construct(
-        public $page
-    ) {}
+    public function __construct() {
+        $path_array = explode('/', substr(parse_url(URL::current(), PHP_URL_PATH), 1));
+        $this->page = Page::where('path', $path_array[1])->first();
+    }
 
     /**
      * Get the view / contents that represent the component.

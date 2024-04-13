@@ -1,5 +1,5 @@
 <x-layout>
-  <x-breadcrumb :page="MyUtil::get_page_current()" />
+  <x-breadcrumb />
   <p>画面説明：xxxxx</p>
   <div class="mb-4 d-flex gap-5">
     <button class="btn button" data-bs-toggle="modal" data-bs-target="#createModal">新規作成</button>

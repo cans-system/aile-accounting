@@ -1,3 +1,5 @@
+@props(['id', 'title', 'size'])
+
 <div class="modal fade" id="{{ $id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">

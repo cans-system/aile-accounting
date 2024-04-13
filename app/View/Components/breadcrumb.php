@@ -15,20 +15,13 @@ class breadcrumb extends Component
      * Create a new component instance.
      */
 
-    public $page_current;
+    public $page;
 
     public function __construct()
     {
-        dd(parse_url(URL::current(), PHP_URL_PATH));
         $path_array = explode('/', substr(parse_url(URL::current(), PHP_URL_PATH), 1));
-        $page = DB::table('pages')->select(['pages.id'])
-            ->join('small_groups', 'pages.small_group_id', 'small_groups.id')
-            ->join('big_groups', 'small_groups.big_group_id', 'big_groups.id')
-            ->where('big_groups.path', $path_array[0])
-            ->where('pages.path', $path_array[1])
-            ->first();
 
-        $this->page_current = Page::find($page->id);
+        $this->page = Page::where('path', $path_array[1])->first();
     }
 
     /**

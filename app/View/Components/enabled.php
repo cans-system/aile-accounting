@@ -14,10 +14,7 @@ class enabled extends Component
     public function __construct(
         public bool $enabled=true,
         public string $name='enabled'
-    )
-    {
-        //
-    }
+    ) {}
 
     /**
      * Get the view / contents that represent the component.

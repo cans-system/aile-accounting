@@ -11,10 +11,13 @@ class enabled extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(
-        public bool $enabled=true,
-        public string $name='enabled'
-    ) {}
+    public bool $enabled;
+    public string $name;
+
+    public function __construct($enabled = true, $name = 'enabled') {
+        $this->enabled = $enabled;
+        $this->name = $name;
+    }
 
     /**
      * Get the view / contents that represent the component.

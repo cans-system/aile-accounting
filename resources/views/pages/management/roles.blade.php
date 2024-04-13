@@ -10,12 +10,9 @@
       <tr class="table-lightblue">
         <th>ID</th>
         <th>ロール</th>
-        <th>マスタ設定</th>
-        <th>連結パッケージ</th>
-        <th>連結決算処理</th>
-        <th>ユーザー管理</th>
-        <th>締め処理</th>
-        <th>繰越処理</th>
+        @foreach ($subjects as $subject)
+          <th class="text-nowrap" style="width: 120px;">{{ $subject['ja'] }}</th>
+        @endforeach
         <th>操作</th>
       </tr>
     </thead>

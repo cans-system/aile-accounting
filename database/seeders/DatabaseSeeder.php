@@ -38,12 +38,12 @@ class DatabaseSeeder extends Seeder
         $client->save();
 
         $client->roles()->saveMany([
-            new Role(['id' => 1, 'title' => 'システム管理者']),
-            new Role(['id' => 2, 'title' => '親会社担当者']),
-            new Role(['id' => 3, 'title' => '親会社承認者']),
-            new Role(['id' => 4, 'title' => '子会社担当者']),
-            new Role(['id' => 5, 'title' => '子会社承認者']),
-            new Role(['id' => 6, 'title' => '監査'])
+            $role = new Role(['title' => 'システム管理者', 'master' => 'writable', 'package' => 'writable', 'settlement' => 'writable', 'users' => 'writable', 'closing' => 'writable', 'carryover' => 'writable']),
+            new Role(['title' => '親会社担当者', 'master' => 'writable', 'package' => 'writable', 'settlement' => 'writable', 'users' => 'writable', 'closing' => 'writable', 'carryover' => 'writable']),
+            new Role(['title' => '親会社承認者', 'master' => 'writable', 'package' => 'approveonly', 'settlement' => 'approveonly', 'users' => 'approveonly', 'closing' => 'writable', 'carryover' => 'writable']),
+            new Role(['title' => '子会社担当者', 'package' => 'writable']),
+            new Role(['title' => '子会社承認者', 'package' => 'approveonly']),
+            new Role(['title' => '監査', 'master' => 'readonly', 'package' => 'readonly', 'settlement' => 'readonly', 'users' => 'readonly'])
         ]);
 
         $client->users()->save(new User([
@@ -52,7 +52,7 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
-            'role_id' => 1
+            'role_id' => $role->id
         ]));
 
         $client->disclosed_business_lists()->saveMany([

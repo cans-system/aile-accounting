@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->enum('master', ['writable', 'approveonly', 'readonly', 'disabled']);
-            $table->enum('package', ['writable', 'approveonly', 'readonly', 'disabled']);
-            $table->enum('settlement', ['writable', 'approveonly', 'readonly', 'disabled']);
-            $table->enum('users', ['writable', 'approveonly', 'readonly', 'disabled']);
-            $table->enum('closing', ['writable', 'approveonly', 'readonly', 'disabled']);
-            $table->enum('carryover', ['writable', 'approveonly', 'readonly', 'disabled']);
+            $table->enum('master', ['writable', 'approveonly', 'readonly', 'disabled'])->default('disabled');
+            $table->enum('package', ['writable', 'approveonly', 'readonly', 'disabled'])->default('disabled');
+            $table->enum('settlement', ['writable', 'approveonly', 'readonly', 'disabled'])->default('disabled');
+            $table->enum('users', ['writable', 'approveonly', 'readonly', 'disabled'])->default('disabled');
+            $table->enum('closing', ['writable', 'approveonly', 'readonly', 'disabled'])->default('disabled');
+            $table->enum('carryover', ['writable', 'approveonly', 'readonly', 'disabled'])->default('disabled');
             $table->foreignId('client_id')->constrained();
             $table->timestamps();
         });

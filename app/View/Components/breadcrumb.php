@@ -19,6 +19,7 @@ class breadcrumb extends Component
 
     public function __construct()
     {
+        dd(parse_url(URL::current(), PHP_URL_PATH));
         $path_array = explode('/', substr(parse_url(URL::current(), PHP_URL_PATH), 1));
 
         $this->page = Page::where('path', $path_array[1])->first();

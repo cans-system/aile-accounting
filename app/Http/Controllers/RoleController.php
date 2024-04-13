@@ -11,8 +11,19 @@ class RoleController extends Controller
         $roles = $request->user()->client->roles;
         return view('pages.management.roles', [
             'roles' => $roles,
-            'collection' => [
-                'マスタ設定', '連結パッケージ', '連結決算処理', 'ユーザー管理', '締め処理', '繰越処理'
+            'subjects' => [
+                ['en' => 'master', 'ja' => 'マスタ設定'],
+                ['en' => 'package', 'ja' => '連結パッケージ'],
+                ['en' => 'settlement', 'ja' => '連結決算処理'],
+                ['en' => 'users', 'ja' => 'ユーザー管理'],
+                ['en' => 'closing', 'ja' => '締め処理'],
+                ['en' => 'carryover', 'ja' => '繰越処理']
+            ],
+            'levels' => [
+                ['en' => 'writable', 'ja' => '入力、編集、削除'],
+                ['en' => 'approveonly', 'ja' => '承認のみ'],
+                ['en' => 'readonly', 'ja' => '閲覧のみ'],
+                ['en' => 'disabled', 'ja' => '使用不可']
             ]
         ]);
     }

@@ -4,6 +4,7 @@
   <div class="mb-4 d-flex gap-5">
     <button class="btn button" data-bs-toggle="modal" data-bs-target="#createModal">新規作成</button>
   </div>
+  <p>〇：入力、編集、削除　●：承認のみ　△：閲覧のみ　×：使用不可</p>
   <x-table>
     <thead>
       <tr class="table-lightblue">
@@ -23,9 +24,9 @@
         <tr>
           <td>{{ $role->id }}</td>
           <td>{{ $role->title }}</td>
-          @foreach ([$role->master, $role->package, $role->settlement ,$role->users, $role->closing, $role->carryover] as $item)
+          @foreach ($subjects as $subject)
             <td class="text-center">
-              @switch($item)
+              @switch($role[$subject['en']])
                 @case('writable')
                   <i class="fa-regular fa-circle"></i>
                   @break
@@ -33,7 +34,7 @@
                   <i class="fa-solid fa-circle"></i>
                   @break 
                 @case('readonly')
-                  △
+                  <span class="fw-bold">△</span>
                   @break 
                 @case('disabled')
                   <i class="fa-solid fa-xmark"></i>
@@ -58,16 +59,17 @@
         @method('PUT')
         <div class="mb-3">
           <label class="form-label">ロール</label>
-          <input type="text" name="name" class="form-control" value="{{ $role->title }}" required>
+          <input type="text" name="title" class="form-control" value="{{ $role->title }}" required>
         </div>
-        @foreach (['マスタ設定', '連結パッケージ', '連結決算処理', 'ユーザー管理', '締め処理', '繰越処理'] as $item)
+        @foreach ($subjects as $subject)
           <div class="mb-3">
-            <label class="form-label">{{ $item }}</label>
-            <select class="form-select" name="detail_summary">
-              <option value="writable">入力、編集、削除</option>
-              <option value="approveonly">承認のみ</option>
-              <option value="readonly">閲覧のみ</option>
-              <option value="disabled">使用不可</option>
+            <label class="form-label">{{ $subject['ja'] }}</label>
+            <select class="form-select" name="{{ $subject['en'] }}">
+              @foreach ($levels as $level)
+                <option value="{{ $level['en'] }}" @selected($level['en'] === $role[$subject['en']])>
+                  {{ $level['ja'] }}
+                </option>
+              @endforeach
             </select>
           </div>
         @endforeach

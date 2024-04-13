@@ -1,11 +1,16 @@
 <?php
 namespace App\Libs;
 
-use App\Models\BigGroup;
 use App\Models\Page;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class MyUtil {
+  public function get_page_current() {
+    $path_array = explode('/', substr(parse_url(URL::current(), PHP_URL_PATH), 1));
+
+    return Page::where('path', $path_array[1])->first();
+  }
+
   public static function url_param_change($par=Array(),$op=0) {
     $url = parse_url($_SERVER["REQUEST_URI"]);
     if(isset($url["query"])) parse_str($url["query"],$query);

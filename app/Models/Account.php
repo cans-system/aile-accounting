@@ -12,4 +12,10 @@ class Account extends Model
     public function category() {
         return $this->belongsTo(Category::class);
     }
+    public function yaer_disclosed_account_list() {
+        return $this->belongsTo(DisclosedAccountList::class, 'year_disclosed_account_list_id');
+    }
+    public function quarter_disclosed_account_list() {
+        return $this->belongsTo(DisclosedAccountList::class, 'quarter_disclosed_account_list_id');
+    }
 }

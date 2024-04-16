@@ -5,9 +5,11 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Business;
+use App\Models\Category;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\Currency;
+use App\Models\DisclosedAccountList;
 use App\Models\DisclosedBusinessList;
 use App\Models\Rate;
 use App\Models\Role;
@@ -63,6 +65,26 @@ class DatabaseSeeder extends Seeder
         $disclosed_business_list->businesses()->saveMany([
             $business = new Business(['title' => 'A1セグメント', 'enabled' => true]),
             new Business(['title' => 'A2セグメント', 'enabled' => true])
+        ]);
+
+        $client->categories()->saveMany([
+            $category = new Category(['title' => '流動資産', 'enabled' => true]),
+            new Category(['title' => '固定資産', 'enabled' => true]),
+            new Category(['title' => '流動負債', 'enabled' => true]),
+            new Category(['title' => '固定負債', 'enabled' => true]),
+            new Category(['title' => '純資産', 'enabled' => true]),
+            new Category(['title' => '売上高', 'enabled' => true])
+        ]);
+
+        $client->disclosed_account_lists()->saveMany([
+            $disclosed_account_list = new DisclosedAccountList(['title' => '現金及び預金']),
+            new DisclosedAccountList(['title' => '売掛金']),
+            new DisclosedAccountList(['title' => '商品']),
+            new DisclosedAccountList(['title' => '流動資産']),
+            new DisclosedAccountList(['title' => '建物']),
+            new DisclosedAccountList(['title' => '買掛金']),
+            new DisclosedAccountList(['title' => '長期借入金']),
+            new DisclosedAccountList(['title' => '資本金'])
         ]);
         
         $client->terms()->saveMany([

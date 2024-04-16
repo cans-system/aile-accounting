@@ -32,9 +32,9 @@
           <td>{{ $account->detail_summary }}</td>
           <td>{{ $account->statement }}</td>
           <td>{{ $account->category->title }}</td>
-          <td>{{ $account->dr_cr }}</td>
-          <td></td>
-          <td></td>
+          <td>{{ $account->dr_cr }}</td>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+          <td>{{ $account->yaer_disclosed_account_list->title }}</td>
+          <td>{{ $account->quarter_disclosed_account_list->title }}</td>
           <td>{{ $account->conversion }}</td>
           <td>{{ $account->fctr }}</td>
           <td></td>
@@ -79,6 +79,7 @@
           <label class="form-label">財務諸表区分</label>
           <select class="form-select" name="statement">
             <option value="貸借対照表" @selected($account->statement === '貸借対照表')>貸借対照表</option>
+            <option value="損益計算書" @selected($account->statement === '損益計算書')>損益計算書</option>
           </select>
         </div>
         <div class="mb-3">
@@ -94,6 +95,28 @@
           <select class="form-select" name="dr_cr">
             <option value="貸方" @selected($account->dr_cr === '貸方')>貸方</option>
             <option value="借方" @selected($account->dr_cr === '借方')>借方</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">年度末開示科目</label>
+          <select class="form-select" name="year_disclosed_account_list_id">
+            @foreach ($disclosed_account_lists as $list)
+              <option value="{{ $list->id }}"
+              @selected($account->year_disclosed_account_list_id === $list->id)>
+                {{ $list->title }}
+              </option>
+            @endforeach
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">四半期開示科目</label>
+          <select class="form-select" name="quarter_disclosed_account_list_id">
+            @foreach ($disclosed_account_lists as $list)
+              <option value="{{ $list->id }}"
+              @selected($account->quarter_disclosed_account_list_id === $list->id)>
+                {{ $list->title }}
+              </option>
+            @endforeach
           </select>
         </div>
         <div class="mb-3">
@@ -139,6 +162,7 @@
         <label class="form-label">財務諸表区分</label>
         <select class="form-select" name="statement">
           <option value="貸借対照表">貸借対照表</option>
+          <option value="損益計算書">損益計算書</option>
         </select>
       </div>
       <div class="mb-3">
@@ -154,6 +178,22 @@
         <select class="form-select" name="dr_cr">
           <option value="貸方">貸方</option>
           <option value="借方">借方</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">年度末開示科目</label>
+        <select class="form-select" name="year_disclosed_account_list_id">
+          @foreach ($disclosed_account_lists as $list)
+            <option value="{{ $list->id }}">{{ $list->title }}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">四半期開示科目</label>
+        <select class="form-select" name="quarter_disclosed_account_list_id">
+          @foreach ($disclosed_account_lists as $list)
+            <option value="{{ $list->id }}">{{ $list->title }}</option>
+          @endforeach
         </select>
       </div>
       <div class="mb-3">

@@ -11,11 +11,11 @@ class AccountController extends Controller
 {
     public function index (Request $request) {
         $accounts = $request->user()->client->accounts;
-        $lists = $request->user()->client->disclosed_account_lists;
+        $disclosed_account_lists = $request->user()->client->disclosed_account_lists;
         $categories = $request->user()->client->categories;
         return view('pages.master.accounts', [
             'accounts' => $accounts,
-            'lists' => $lists,
+            'disclosed_account_lists' => $disclosed_account_lists,
             'categories' => $categories
         ]);
     }
@@ -28,6 +28,8 @@ class AccountController extends Controller
         $account->statement = $request->statement;
         $account->category_id = $request->category_id;
         $account->dr_cr = $request->dr_cr;
+        $account->year_disclosed_account_list_id = $request->year_disclosed_account_list_id;
+        $account->quarter_disclosed_account_list_id = $request->quarter_disclosed_account_list_id;
         $account->conversion = $request->conversion;
         $account->fctr = $request->fctr;
         $account->enabled = $request->enabled;
@@ -43,6 +45,8 @@ class AccountController extends Controller
         $account->statement = $request->statement;
         $account->category_id = $request->category_id;
         $account->dr_cr = $request->dr_cr;
+        $account->year_disclosed_account_list_id = $request->year_disclosed_account_list_id;
+        $account->quarter_disclosed_account_list_id = $request->quarter_disclosed_account_list_id;
         $account->conversion = $request->conversion;
         $account->fctr = $request->fctr;
         $account->enabled = $request->enabled;

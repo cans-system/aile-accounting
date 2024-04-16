@@ -21,7 +21,11 @@
           <td>{{ $user->email }}</td>
           <td>{{ $user->role->title }}</td>
           <td>
-            {{ MyUtil::array_str($user->companies->pluck('title')->all(), '、') }}
+            @if (count($user->companies) === count($companies))
+              全社
+            @else
+              {{ MyUtil::array_str($user->companies->pluck('title')->all(), '、') }}                
+            @endif
           </td>
           <td>
             <x-ellipsis
@@ -58,11 +62,11 @@
           <label class="form-label">対象会社</label>
           <select class="form-select" name="company_id_list[]" multiple>
             @foreach ($companies as $company)
-            <option
-            value="{{ $company->id }}"
-            @selected($user->companies->pluck('id')->contains($company->id))>
-              {{ $company->title }}
-            </option>
+              <option
+              value="{{ $company->id }}"
+              @selected($user->companies->pluck('id')->contains($company->id))>
+                {{ $company->title }}
+              </option>
             @endforeach
           </select>
         </div>  
@@ -86,7 +90,7 @@
         <label class="form-label">ロール</label>
         <select class="form-select" name="role_id">
           @foreach ($roles as $role)
-          <option value="{{ $role->id }}" @selected($role->id == $user->role_id)>{{ $role->title }}</option>
+            <option value="{{ $role->id }}" @selected($role->id == $user->role_id)>{{ $role->title }}</option>
           @endforeach
         </select>
       </div>
@@ -94,7 +98,7 @@
         <label class="form-label">対象会社</label>
         <select class="form-select" name="company_id_list[]" multiple>
           @foreach ($companies as $company)
-          <option value="{{ $company->id }}">{{ $company->title }}</option>
+            <option value="{{ $company->id }}">{{ $company->title }}</option>
           @endforeach
         </select>
       </div>

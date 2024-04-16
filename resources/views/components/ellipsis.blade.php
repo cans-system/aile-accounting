@@ -13,5 +13,6 @@
         <button class="dropdown-item">削除</button>
       </form>
     </li>
+    {{ $slot }}
   </ul>
 </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScopeController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TermController;
+use App\Http\Middleware\SupportLogin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +36,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', SupportLogin::class])->group(function () {
     Route::prefix('users')->group(function () {
         Route::get('/{user}', function () {
             return 'user';
@@ -100,6 +101,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('clients', ClientController::class)->only([
             'index', 'store', 'update', 'destroy'
         ]);
+
+        Route::post('/change_support_login_client', [SessionController::class, 'change_support_login_client']);
     });
 });
 

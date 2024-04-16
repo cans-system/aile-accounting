@@ -14,8 +14,9 @@ class SessionController extends Controller
         return back();
     }
 
-    public function change_imperson_as(Request $request) {
+    public function change_support_login_client(Request $request) {
         $client = Client::find($request->client_id);
-        // 管理者のなりすましログインから
+        $request->session()->put('support_login_client', $client);
+        return back();
     }
 }

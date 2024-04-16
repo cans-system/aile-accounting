@@ -25,7 +25,15 @@
           <td>
             <x-ellipsis
             edit-modal-id="editUser{{ $client->id }}"
-            delete-action="/admin/clients/{{ $client->id }}" />
+            delete-action="/admin/clients/{{ $client->id }}">
+              <li>
+                <form action="/admin/change_support_login_client" method="post">
+                  @csrf
+                  <input type="hidden" name="client_id" value="{{ $client->id }}">
+                  <button class="dropdown-item">サポートログイン</button>
+                </form>
+              </li>
+            </x-ellipsis>
           </td>
         </tr>
       @endforeach

@@ -79,9 +79,21 @@
     <form action="/management/roles" method="post">
       @csrf
       <div class="mb-3">
-        <label class="form-label">ユーザー名</label>
-        <input type="text" name="name" class="form-control" required>
+        <label class="form-label">ロール</label>
+        <input type="text" name="title" class="form-control" required>
       </div>
+      @foreach ($subjects as $subject)
+        <div class="mb-3">
+          <label class="form-label">{{ $subject['ja'] }}</label>
+          <select class="form-select" name="{{ $subject['en'] }}">
+            @foreach ($levels as $level)
+              <option value="{{ $level['en'] }}">
+                {{ $level['ja'] }}
+              </option>
+            @endforeach
+          </select>
+        </div>
+      @endforeach
       <button type="submit" class="btn btn-primary">作成</button>
     </form>
   </x-modal>   

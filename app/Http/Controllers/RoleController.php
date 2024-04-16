@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -40,8 +41,6 @@ class RoleController extends Controller
         $role->client_id = $request->user()->client_id;
         $role->save();
         
-        $role->companies()->sync($request->company_id_list);
-
         return back()->with('toast', ['success', 'ロールを新規作成しました']);
     }
 
@@ -59,7 +58,11 @@ class RoleController extends Controller
     }
 
     public function destroy (Request $request, Role $role) {
-        $role->delete();
+        try {
+            $role->delete();
+        } catch (QueryException) {
+            return back()->with('toast', ['danger', 'ロールを削除できませんでした。（このロールは使用されています）']);
+        }
 
         return back()->with('toast', ['success', 'ロールを削除しました']);
     }

@@ -77,8 +77,8 @@
         <div class="mb-3">
           <label class="form-label">デフォルトセグメント</label>
           <select class="form-select" name="business_id">
-            @foreach ($company->businesses as $business)
-            <option value="{{ $business->id }}" @selected($company->business_id === $business->id)>
+            @foreach ($businesses as $business)
+            <option value="{{ $business->id }}" @selected($company->business->id == $business->id)>
               {{ $business->title }}
             </option>
             @endforeach

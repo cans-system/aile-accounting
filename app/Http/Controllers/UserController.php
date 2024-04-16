@@ -46,6 +46,7 @@ class UserController extends Controller
     }
 
     public function destroy (Request $request, User $user) {
+        $user->companies()->detach();
         $user->delete();
 
         return back()->with('toast', ['success', 'ユーザーを削除しました']);

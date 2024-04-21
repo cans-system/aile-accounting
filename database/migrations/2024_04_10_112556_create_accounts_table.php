@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('title_en');
             $table->enum('detail_summary', ['明細科目', '集計科目']);
-            $table->enum('statement', ['貸借対照表', '損益計算書']);
+            $table->unsignedtinyInteger('statement');
             $table->foreignId('category_id')->constrained();
             $table->enum('dr_cr', ['借方', '貸方']);
             $table->foreignId('year_disclosed_account_list_id')->constrained('disclosed_account_lists');

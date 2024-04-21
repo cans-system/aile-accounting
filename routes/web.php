@@ -88,6 +88,10 @@ Route::middleware(['auth', SupportLogin::class])->group(function () {
         ]);
     });
 
+    Route::prefix('package')->group(function () {
+        // Route::
+    });
+
     Route::prefix('management')->group(function () {
         Route::resource('users', UserController::class)->only([
             'index', 'store', 'update', 'destroy'

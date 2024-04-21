@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use App\Enums\Statement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
     use HasFactory;
+
+    protected $casts = [
+        'statement' => Statement::class
+    ];
 
     public function category() {
         return $this->belongsTo(Category::class);

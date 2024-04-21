@@ -32,7 +32,7 @@
           <td>{{ $account->detail_summary }}</td>
           <td>{{ $account->statement }}</td>
           <td>{{ $account->category->title }}</td>
-          <td>{{ $account->dr_cr }}</td>;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+          <td>{{ $account->dr_cr }}</td>
           <td>{{ $account->yaer_disclosed_account_list->title }}</td>
           <td>{{ $account->quarter_disclosed_account_list->title }}</td>
           <td>{{ $account->conversion }}</td>
@@ -78,8 +78,9 @@
         <div class="mb-3">
           <label class="form-label">財務諸表区分</label>
           <select class="form-select" name="statement">
-            <option value="貸借対照表" @selected($account->statement === '貸借対照表')>貸借対照表</option>
-            <option value="損益計算書" @selected($account->statement === '損益計算書')>損益計算書</option>
+            @foreach (App\Enums\Statement::cases() as $statement)
+              <option value="{{ $statement }}" @selected($account->statement === $statement)>{{ $statement->title }}</option>
+            @endforeach
           </select>
         </div>
         <div class="mb-3">
@@ -161,8 +162,9 @@
       <div class="mb-3">
         <label class="form-label">財務諸表区分</label>
         <select class="form-select" name="statement">
-          <option value="貸借対照表">貸借対照表</option>
-          <option value="損益計算書">損益計算書</option>
+          @foreach (App\Enums\Statement::cases() as $statement)
+            <option value="{{ $statement }}" @selected($account->statement === $statement)>{{ $statement->title }}</option>
+          @endforeach
         </select>
       </div>
       <div class="mb-3">

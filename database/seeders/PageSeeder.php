@@ -52,10 +52,10 @@ class PageSeeder extends Seeder
             ]],
             ['連結パッケージ', 'package', [
                 ['個別財務諸表', [
-                    ['貸借対照表', 'bs', false],
-                    ['損益計算書', 'pl', false],
-                    ['包括利益計算書', 'ci', false],
-                    ['株主資本等変動計算書', 'cn', false]
+                    ['貸借対照表', 'bs', true],
+                    ['損益計算書', 'pl', true],
+                    ['包括利益計算書', 'ci', true],
+                    ['株主資本等変動計算書', 'cn', true]
                 ]],
                 ['その他情報', [
                     ['その他情報', '', false]

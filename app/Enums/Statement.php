@@ -2,11 +2,11 @@
 
 namespace App\Enums;
 
-enum Statement {
-  case BS;
-  case PL;
-  case CI;
-  case CN;
+enum Statement: int {
+  case BS = 1;
+  case PL = 2;
+  case CI = 3;
+  case CN = 4;
 
   public function title(): string {
     return match($this) {

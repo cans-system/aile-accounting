@@ -30,7 +30,7 @@
           <td>{{ $account->title }}</td>
           <td>{{ $account->title_en }}</td>
           <td>{{ $account->detail_summary }}</td>
-          <td>{{ $account->statement }}</td>
+          <td>{{ $account->statement->title() }}</td>
           <td>{{ $account->category->title }}</td>
           <td>{{ $account->dr_cr }}</td>
           <td>{{ $account->yaer_disclosed_account_list->title }}</td>
@@ -79,7 +79,7 @@
           <label class="form-label">財務諸表区分</label>
           <select class="form-select" name="statement">
             @foreach (App\Enums\Statement::cases() as $statement)
-              <option value="{{ $statement }}" @selected($account->statement === $statement)>{{ $statement->title }}</option>
+              <option value="{{ $statement }}" @selected($account->statement === $statement)>{{ $statement->title() }}</option>
             @endforeach
           </select>
         </div>
@@ -163,7 +163,7 @@
         <label class="form-label">財務諸表区分</label>
         <select class="form-select" name="statement">
           @foreach (App\Enums\Statement::cases() as $statement)
-            <option value="{{ $statement }}" @selected($account->statement === $statement)>{{ $statement->title }}</option>
+            <option value="{{ $statement }}">{{ $statement->title() }}</option>
           @endforeach
         </select>
       </div>

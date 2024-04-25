@@ -23,4 +23,7 @@ class Account extends Model
     public function quarter_disclosed_account_list() {
         return $this->belongsTo(DisclosedAccountList::class, 'quarter_disclosed_account_list_id');
     }
+    public function statement(): Statement {
+        return Statement::from($this->statement);
+    }
 }

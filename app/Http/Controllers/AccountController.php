@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Statement;
 use App\Models\Account;
-use App\Models\DisclosedAccountList;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AccountController extends Controller
 {

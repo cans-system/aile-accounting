@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Company;
 use App\Models\Role;
 use App\Models\User;
@@ -9,25 +10,21 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index (Request $request) {
-        $users = $request->user()->client->users;
-        $roles = $request->user()->client->roles;
-        $companies = $request->user()->client->companies;
+    public function index (Request $request, Client $client) {
         return view('pages.management.users', [
-            'users' => $users,
-            'roles' => $roles,
-            'companies' => $companies,
+            'users' => $client->users,
+            'roles' => $client->roles,
+            'companies' => $client->companies,
         ]);
     }
 
-    public function store (Request $request) {
+    public function store (Request $request, Client $client) {
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->role_id = $request->role_id;
         $user->password = $request->password;
-        $user->client_id = $request->user()->client_id;
-        $user->save();
+        $client->users()->save($user);
         
         $user->companies()->sync($request->company_id_list);
 

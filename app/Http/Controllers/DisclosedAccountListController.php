@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\DisclosedAccountList;
 use Illuminate\Http\Request;
 
 class DisclosedAccountListController extends Controller
 {
-    public function index (Request $request) {
-        $lists = $request->user()->client->disclosed_account_lists;
+    public function index (Request $request, Client $client) {
+        $lists = $client->disclosed_account_lists;
         return view('pages.master.disclosed_account_lists', [
             'lists' => $lists
         ]);
     }
 
-    public function store (Request $request) {
+    public function store (Request $request, Client $client) {
         $list = new DisclosedAccountList();
         $list->title = $request->title;
-        $list->client_id = $request->user()->client_id;
-        $list->save();
+        $client->disclosed_account_lists()->save($list);
 
         return back()->with('toast', ['success', '開示科目を新規作成しました']);
     }

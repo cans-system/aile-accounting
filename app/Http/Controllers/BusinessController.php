@@ -3,22 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Business;
+use App\Models\Client;
 use App\Models\DisclosedBusinessList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class BusinessController extends Controller
 {
-    public function index (Request $request) {
-        $businesses = $request->user()->client->businesses;
-        $lists = $request->user()->client->disclosed_business_lists;
+    public function index (Request $request, Client $client) {
+        $businesses = $client->businesses;
+        $lists = $client->disclosed_business_lists;
         return view('pages.master.businesses', [
             'businesses' => $businesses,
             'lists' => $lists
         ]);
     }
 
-    public function store (Request $request) {
+    public function store (Request $request, Client $client) {
         $business = new Business();
         $business->title = $request->title;
         $business->enabled = $request->enabled;

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\Statement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Account extends Model
 {
@@ -25,5 +26,8 @@ class Account extends Model
     }
     public function statement(): Statement {
         return Statement::from($this->statement);
+    }
+    public function fctr_account(): BelongsTo {
+        return $this->belongsTo(self::class, 'fctr_account_id');
     }
 }

@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\DisclosedBusinessList;
 use Illuminate\Http\Request;
 
 class DisclosedBusinessListController extends Controller
 {
-    public function index (Request $request) {
-        $lists = $request->user()->client->disclosed_business_lists;
+    public function index (Request $request, Client $client) {
         return view('pages.master.disclosed_business_lists', [
-            'lists' => $lists
+            'lists' => $client->disclosed_business_lists
         ]);
     }
 
-    public function store (Request $request) {
+    public function store (Request $request, Client $client) {
         $list = new DisclosedBusinessList();
         $list->title = $request->title;
         $list->enabled = $request->enabled;
-        $list->client_id = $request->user()->client_id;
-        $list->save();
+        $client->disclosed_business_lists()->save($list);
 
         return back()->with('toast', ['success', '開示事業セグメントを新規作成しました']);
     }

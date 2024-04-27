@@ -2,31 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Company;
 use App\Models\Currency;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    public function index (Request $request) {
-        $companies = $request->user()->client->companies;
-        $currencies = $request->user()->client->currencies;
-        $businesses = $request->user()->client->businesses;
+    public function index (Request $request, Client $client) {
         return view('pages.master.companies', [
-            'companies' => $companies,
-            'currencies' => $currencies,
-            'businesses' => $businesses
+            'companies' => $client->companies,
+            'currencies' => $client->currencies,
+            'businesses' => $client->businesses
         ]);
     }
 
-    public function store (Request $request) {
+    public function store (Request $request, Client $client) {
         $company = new Company();
         $company->title = $request->title;
         $company->fiscal_month = $request->fiscal_month;
         $company->currency_id = $request->currency_id;
         $company->business_id = $request->business_id;
-        $company->client_id = $request->user()->client_id;
-        $company->save();
+        $client->companies()->save($company);
 
         $company->businesses()->sync($request->business_id_list);
 

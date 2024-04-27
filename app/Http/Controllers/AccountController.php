@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\Statement;
 use App\Models\Account;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
-    public function index (Request $request) {
-        $accounts = $request->user()->client->accounts;
-        $disclosed_account_lists = $request->user()->client->disclosed_account_lists;
-        $categories = $request->user()->client->categories;
+    public function index (Request $request, Client $client) {
         return view('pages.master.accounts', [
-            'accounts' => $accounts,
-            'disclosed_account_lists' => $disclosed_account_lists,
-            'categories' => $categories
+            'accounts' => $client->accounts,
+            'disclosed_account_lists' => $client->disclosed_account_lists,
+            'categories' => $client->categories,
+            'client' => $client
         ]);
     }
 
-    public function store (Request $request) {
+    public function store (Request $request, Client $client) {
         $account = new Account();
         $account->title = $request->title;
         $account->title_en = $request->title_en;
@@ -30,7 +28,7 @@ class AccountController extends Controller
         $account->year_disclosed_account_list_id = $request->year_disclosed_account_list_id;
         $account->quarter_disclosed_account_list_id = $request->quarter_disclosed_account_list_id;
         $account->conversion = $request->conversion;
-        $account->fctr = $request->fctr;
+        $account->fctr_account_id = $request->fctr_account_id;
         $account->enabled = $request->enabled;
         $account->save();
 
@@ -47,7 +45,7 @@ class AccountController extends Controller
         $account->year_disclosed_account_list_id = $request->year_disclosed_account_list_id;
         $account->quarter_disclosed_account_list_id = $request->quarter_disclosed_account_list_id;
         $account->conversion = $request->conversion;
-        $account->fctr = $request->fctr;
+        $account->fctr_account_id = $request->fctr_account_id;
         $account->enabled = $request->enabled;
         $account->save();
 

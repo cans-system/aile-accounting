@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Role;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    public function index (Request $request) {
-        $roles = $request->user()->client->roles;
+    public function index (Request $request, Client $client) {
         return view('pages.management.roles', [
-            'roles' => $roles,
+            'roles' => $client->roles,
             'subjects' => [
                 ['en' => 'master', 'ja' => 'マスタ設定'],
                 ['en' => 'package', 'ja' => '連結パッケージ'],
@@ -29,7 +29,7 @@ class RoleController extends Controller
         ]);
     }
 
-    public function store (Request $request) {
+    public function store (Request $request, Client $client) {
         $role = new Role();
         $role->title = $request->title;
         $role->master = $request->master;
@@ -38,8 +38,7 @@ class RoleController extends Controller
         $role->users = $request->users;
         $role->closing = $request->closing;
         $role->carryover = $request->carryover;
-        $role->client_id = $request->user()->client_id;
-        $role->save();
+        $client->roles()->save($role);
         
         return back()->with('toast', ['success', 'ロールを新規作成しました']);
     }

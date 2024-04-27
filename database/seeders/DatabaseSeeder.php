@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Enums\ScopeRelation;
+use App\Enums\Statement;
+use App\Models\Account;
 use App\Models\Business;
 use App\Models\Category;
 use App\Models\Client;
@@ -86,6 +89,21 @@ class DatabaseSeeder extends Seeder
             new DisclosedAccountList(['title' => '長期借入金']),
             new DisclosedAccountList(['title' => '資本金'])
         ]);
+
+        $category->accounts()->saveMany([
+            $account = new Account([
+                'title' => '現金',
+                'title_en' => 'cash',
+                'detail_summary' => '明細科目',
+                'statement' => Statement::BS,
+                'dr_cr' => '借方',
+                'year_disclosed_account_list_id' => $disclosed_account_list->id,
+                'quarter_disclosed_account_list_id' => $disclosed_account_list->id,
+                'conversion' => '期末日レート',
+                'fctr_account_id' => null,
+                'enabled' => true
+            ]),
+        ]);
         
         $client->terms()->saveMany([
             $term = new Term(['group' => '実績', 'month' => '2024-04', 'type' => '実績', 'period' => '月次']),
@@ -107,8 +125,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $term->scopes()->saveMany([
-            new Scope(['company_id' => $company->id, 'relation' => '親会社']),
-            new Scope(['company_id' => $company2->id, 'relation' => '持分法適用会社'])
+            new Scope(['company_id' => $company->id, 'relation' => ScopeRelation::PARENT]),
+            new Scope(['company_id' => $company2->id, 'relation' => ScopeRelation::EQUITY_METHOD_AFFILIATE])
         ]);
     }
 }

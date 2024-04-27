@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\URL;
 class MyUtil {
   public function get_page_current() {
     $path_array = explode('/', substr(parse_url(URL::current(), PHP_URL_PATH), 1));
-
-    return Page::where('path', $path_array[1])->first();
+    
+    return Page::where('path', end($path_array))->first();
   }
 
   public static function url_param_change($par=Array(),$op=0) {

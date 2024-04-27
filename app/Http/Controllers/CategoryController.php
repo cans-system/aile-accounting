@@ -3,23 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index (Request $request) {
-        $categories = $request->user()->client->categories;
+    public function index (Request $request, Client $client) {
+        $categories = $client->categories;
         return view('pages.master.categories', [
             'categories' => $categories
         ]);
     }
 
-    public function store (Request $request) {
+    public function store (Request $request, Client $client) {
         $category = new Category();
         $category->title = $request->title;
         $category->enabled = $request->enabled;
-        $category->client_id = $request->user()->client_id;
-        $category->save();
+        $client->categories()->save($category);
 
         return back()->with('toast', ['success', '科目分類を新規作成しました']);
     }

@@ -2,27 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Term;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TermController extends Controller
 {
-    public function index (Request $request) {
-        $terms = $request->user()->client->terms;
+    public function index (Request $request, Client $client) {
         return view('pages.master.terms', [
-            'terms' => $terms
+            'terms' => $client->terms
         ]);
     }
 
-    public function store (Request $request) {
+    public function store (Request $request, Client $client) {
         $term = new Term();
         $term->group = $request->group;
         $term->month = $request->month;
         $term->type = $request->type;
         $term->period = $request->period;
-        $term->client_id = $request->user()->client_id;
-        $term->save();
+        $client->terms()->save($term);
 
         return back()->with('toast', ['success', '会計期間を新規作成しました']);
     }

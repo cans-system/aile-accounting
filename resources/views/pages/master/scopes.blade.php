@@ -18,7 +18,7 @@
         <tr>
           <td>{{ $scope->id }}</td>
           <td>{{ $scope->company->title }}</td>
-          <td>{{ $scope->relation }}</td>
+          <td>{{ $scope->relation->title() }}</td>
           <td>
             <x-ellipsis
             edit-modal-id="editModal{{ $scope->id }}"
@@ -45,10 +45,9 @@
         <div class="mb-3">
           <label class="form-label">会社区分</label>
           <select class="form-select" name="relation">
-            <option value="親会社" @selected($scope->type === "親会社")>親会社</option>
-            <option value="連結子会社" @selected($scope->type === "連結子会社")>連結子会社</option>
-            <option value="持分法適用会社" @selected($scope->type === "持分法適用会社")>持分法適用会社</option>
-            <option value="非連結会社" @selected($scope->type === "非連結会社")>非連結会社</option>
+            @foreach (App\Enums\ScopeRelation::cases() as $case)
+              <option value="{{ $case }}" @selected($scope->relation === $case->title())>{{ $case->title() }}</option>
+            @endforeach
           </select>
         </div>
         <button type="submit" class="btn btn-primary">更新</button>
@@ -70,10 +69,9 @@
       <div class="mb-3">
         <label class="form-label">会社区分</label>
         <select class="form-select" name="relation">
-          <option value="親会社">親会社</option>
-          <option value="連結子会社">連結子会社</option>
-          <option value="持分法適用会社">持分法適用会社</option>
-          <option value="非連結会社">非連結会社</option>
+          @foreach (App\Enums\ScopeRelation::cases() as $case)
+            <option value="{{ $case }}">{{ $case->title() }}</option>
+          @endforeach
         </select>
       </div>
       <button type="submit" class="btn btn-primary">作成</button>

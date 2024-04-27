@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreignId('year_disclosed_account_list_id')->constrained('disclosed_account_lists');
             $table->foreignId('quarter_disclosed_account_list_id')->constrained('disclosed_account_lists');
             $table->enum('conversion', ['期末日レート', '期中平均レート']);
-            $table->enum('fctr', ['為替換算調整勘定-換算調整']);
+            $table->foreignId('fctr_account_id')->nullable()->constrained('accounts');
             $table->boolean('enabled');
             $table->timestamps();
         });

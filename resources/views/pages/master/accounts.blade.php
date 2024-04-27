@@ -36,7 +36,13 @@
           <td>{{ $account->yaer_disclosed_account_list->title }}</td>
           <td>{{ $account->quarter_disclosed_account_list->title }}</td>
           <td>{{ $account->conversion }}</td>
-          <td>{{ $account->fctr }}</td>
+          <td>
+            @if ($fctr_account = $account->fctr_account)
+              {{ $fctr_account->title }}
+            @else
+              -
+            @endif
+          </td>
           <td></td>
           <td>
             @if ($account->enabled)
@@ -129,8 +135,12 @@
         </div>
         <div class="mb-3">
           <label class="form-label">換算差額調整勘定</label>
-          <select class="form-select" name="fctr">
-            <option value="為替換算調整勘定-換算調整" @selected($account->dr_cr === '為替換算調整勘定-換算調整')>為替換算調整勘定-換算調整</option>
+          <select class="form-select" name="fctr_account_id">
+            @foreach ($accounts as $x_account)
+              <option value="{{ $x_account->id }}" @selected($account->fctr_account_id === $x_account->id)>
+                {{ $x_account->title }}
+              </option>                
+            @endforeach
           </select>
         </div>
         <div class="mb-3">
@@ -207,8 +217,12 @@
       </div>
       <div class="mb-3">
         <label class="form-label">換算差額調整勘定</label>
-        <select class="form-select" name="fctr">
-          <option value="為替換算調整勘定-換算調整">為替換算調整勘定-換算調整</option>
+        <select class="form-select" name="fctr_account_id">
+          @foreach ($accounts as $x_account)
+            <option value="{{ $x_account->id }}">
+              {{ $x_account->title }}
+            </option>                
+          @endforeach
         </select>
       </div>
       <div class="mb-3">

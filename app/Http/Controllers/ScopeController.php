@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Scope;
 use App\Models\Term;
 use Illuminate\Http\Request;
 
 class ScopeController extends Controller
 {
-    public function index (Request $request) {
+    public function index (Request $request, Client $client) {
         $term_id = $request->session()->get('selected_term')->id;
         $scopes = Term::find($term_id)->scopes;
-        $companies = $request->user()->client->companies;
+        $companies = $client->companies;
         return view('pages.master.scopes', [
             'scopes' => $scopes,
             'companies' => $companies
         ]);
     }
 
-    public function store (Request $request) {
+    public function store (Request $request, Client $client) {
         $scope = new Scope();
         $scope->company_id = $request->company_id;
         $scope->relation = $request->relation;

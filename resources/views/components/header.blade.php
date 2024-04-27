@@ -1,3 +1,7 @@
+@php
+  $user = Auth::user();
+  $client = $user->client;
+@endphp
 <header>
   <div class="bg-text-blue px-4">
     <div class="d-flex justify-content-between align-items-center py-2">
@@ -22,7 +26,7 @@
               @endif
             </a>
             <ul class="dropdown-menu">
-              @foreach (Auth::user()->client->terms as $term)
+              @foreach ($client->terms as $term)
                 <li>
                   <form action="/change_term" method="post">
                     @csrf
@@ -36,14 +40,14 @@
             </ul>
           </div>
         </li>
-        <li><a class="text-decoration-none p-2 text-reset" href="">{{ request()->user()->client->title }}</a></li>
+        <li><a class="text-decoration-none p-2 text-reset" href="">{{ $client->title }}</a></li>
         <li>
           <div class="dropdown">
             <a class="text-decoration-none p-2 text-reset dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              {{ request()->user()->name }}
+              {{ $user->name }}
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{{ request()->user()->link() }}">アカウント設定</a></li>
+              <li><a class="dropdown-item" href="{{ $user->link() }}">アカウント設定</a></li>
 							<li><hr class="dropdown-divider"></li>
 							<li>
 								<form action="/logout" method="post">
@@ -72,7 +76,7 @@
                     @foreach ($small_group->pages as $pages)
                       <li class="mb-1">
                         @if ($pages->enabled)
-                          <a class="text-decoration-none text-reset" href="/{{ $big_group->path }}/{{ $pages->path }}">
+                          <a class="text-decoration-none text-reset" href="/clients/{{ $client->id }}/{{ $pages->path }}">
                             {{ $pages->title }}
                           </a>  
                         @else

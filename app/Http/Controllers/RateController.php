@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Rate;
 use App\Models\Term;
 use Illuminate\Http\Request;
 
 class RateController extends Controller
 {
-    public function index (Request $request) {
+    public function index (Request $request, Client $client) {
         $term_id = $request->session()->get('selected_term')->id;
         $rates = Term::find($term_id)->rates;
-        $currencies = $request->user()->client->currencies;
+        $currencies = $client->currencies;
         return view('pages.master.rates', [
             'rates' => $rates,
             'currencies' => $currencies
         ]);
     }
 
-    public function store (Request $request) {
+    public function store (Request $request, Client $client) {
         $rate = new Rate();
         $rate->last_day_rate = $request->last_day_rate;
         $rate->average_rate = $request->average_rate;

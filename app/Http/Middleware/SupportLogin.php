@@ -17,7 +17,7 @@ class SupportLogin
     public function handle(Request $request, Closure $next): Response
     {
         if ($client = Session::get('support_login_client')) {
-            $request->user()->client_id = $client->id;
+            $client_id = $client->id;
         }
 
         return $next($request);

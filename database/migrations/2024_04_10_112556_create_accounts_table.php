@@ -15,13 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('title_en');
-            $table->enum('detail_summary', ['明細科目', '集計科目']);
+            $table->unsignedTinyInteger('detail_summary');
             $table->unsignedtinyInteger('statement');
             $table->foreignId('category_id')->constrained();
-            $table->enum('dr_cr', ['借方', '貸方']);
+            $table->unsignedTinyInteger('dr_cr');
             $table->foreignId('year_disclosed_account_list_id')->constrained('disclosed_account_lists');
             $table->foreignId('quarter_disclosed_account_list_id')->constrained('disclosed_account_lists');
-            $table->enum('conversion', ['期末日レート', '期中平均レート']);
+            $table->unsignedTinyInteger('conversion');
             $table->foreignId('fctr_account_id')->nullable()->constrained('accounts');
             $table->boolean('enabled');
             $table->timestamps();

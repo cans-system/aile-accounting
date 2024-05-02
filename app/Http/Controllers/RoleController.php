@@ -25,7 +25,8 @@ class RoleController extends Controller
                 ['en' => 'approveonly', 'ja' => '承認のみ'],
                 ['en' => 'readonly', 'ja' => '閲覧のみ'],
                 ['en' => 'disabled', 'ja' => '使用不可']
-            ]
+            ],
+            'client' => $client
         ]);
     }
 

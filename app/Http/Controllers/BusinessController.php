@@ -15,7 +15,8 @@ class BusinessController extends Controller
         $lists = $client->disclosed_business_lists;
         return view('pages.master.businesses', [
             'businesses' => $businesses,
-            'lists' => $lists
+            'lists' => $lists,
+            'client' => $client
         ]);
     }
 

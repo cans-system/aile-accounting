@@ -22,7 +22,7 @@
           <td>
             <x-ellipsis
             edit-modal-id="editModal{{ $scope->id }}"
-            delete-action="/master/scopes/{{ $scope->id }}" />
+            delete-action="/scopes/{{ $scope->id }}" />
           </td>
         </tr>
       @endforeach
@@ -31,7 +31,7 @@
   
   @foreach ($scopes as $scope)
     <x-modal id="editModal{{ $scope->id }}" title="編集">
-      <form action="/master/scopes/{{ $scope->id }}" method="post">
+      <form action="/scopes/{{ $scope->id }}" method="post">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -56,7 +56,7 @@
   @endforeach
 
   <x-modal id="createCompany" title="新規作成">
-    <form action="/master/scopes" method="post">
+    <form action="/scopes" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">会社</label>

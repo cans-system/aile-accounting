@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\Conversion;
+use App\Enums\DetailSummary;
+use App\Enums\DrCr;
 use App\Enums\Statement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +15,10 @@ class Account extends Model
     use HasFactory;
 
     protected $casts = [
-        'statement' => Statement::class
+        'statement' => Statement::class,
+        'detail_summary' => DetailSummary::class,
+        'dr_cr' => DrCr::class,
+        'conversion' => Conversion::class,
     ];
 
     public function category() {

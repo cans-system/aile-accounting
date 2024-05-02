@@ -15,7 +15,8 @@ class RateController extends Controller
         $currencies = $client->currencies;
         return view('pages.master.rates', [
             'rates' => $rates,
-            'currencies' => $currencies
+            'currencies' => $currencies,
+            'client' => $client
         ]);
     }
 

@@ -10,7 +10,8 @@ class DisclosedBusinessListController extends Controller
 {
     public function index (Request $request, Client $client) {
         return view('pages.master.disclosed_business_lists', [
-            'lists' => $client->disclosed_business_lists
+            'lists' => $client->disclosed_business_lists,
+            'client' => $client
         ]);
     }
 

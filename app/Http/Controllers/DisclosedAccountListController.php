@@ -11,7 +11,8 @@ class DisclosedAccountListController extends Controller
     public function index (Request $request, Client $client) {
         $lists = $client->disclosed_account_lists;
         return view('pages.master.disclosed_account_lists', [
-            'lists' => $lists
+            'lists' => $lists,
+            'client' => $client
         ]);
     }
 

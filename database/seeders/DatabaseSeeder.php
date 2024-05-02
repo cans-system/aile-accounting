@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Enums\Conversion;
+use App\Enums\DetailSummary;
+use App\Enums\DrCr;
 use App\Enums\ScopeRelation;
 use App\Enums\Statement;
 use App\Models\Account;
@@ -94,12 +97,12 @@ class DatabaseSeeder extends Seeder
             $account = new Account([
                 'title' => '現金',
                 'title_en' => 'cash',
-                'detail_summary' => '明細科目',
+                'detail_summary' => DetailSummary::DETAIL,
                 'statement' => Statement::BS,
-                'dr_cr' => '借方',
+                'dr_cr' => DrCr::DR,
                 'year_disclosed_account_list_id' => $disclosed_account_list->id,
                 'quarter_disclosed_account_list_id' => $disclosed_account_list->id,
-                'conversion' => '期末日レート',
+                'conversion' => Conversion::LAST_DAY_RATE,
                 'fctr_account_id' => null,
                 'enabled' => true
             ]),

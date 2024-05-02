@@ -15,6 +15,7 @@ class UserController extends Controller
             'users' => $client->users,
             'roles' => $client->roles,
             'companies' => $client->companies,
+            'client' => $client
         ]);
     }
 

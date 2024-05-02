@@ -11,7 +11,8 @@ class TermController extends Controller
 {
     public function index (Request $request, Client $client) {
         return view('pages.master.terms', [
-            'terms' => $client->terms
+            'terms' => $client->terms,
+            'client' => $client
         ]);
     }
 

@@ -29,13 +29,13 @@
           <td>{{ $account->id }}</td>
           <td>{{ $account->title }}</td>
           <td>{{ $account->title_en }}</td>
-          <td>{{ $account->detail_summary }}</td>
+          <td>{{ $account->detail_summary->title() }}</td>
           <td>{{ $account->statement->title() }}</td>
           <td>{{ $account->category->title }}</td>
-          <td>{{ $account->dr_cr }}</td>
+          <td>{{ $account->dr_cr->title() }}</td>
           <td>{{ $account->yaer_disclosed_account_list->title }}</td>
           <td>{{ $account->quarter_disclosed_account_list->title }}</td>
-          <td>{{ $account->conversion }}</td>
+          <td>{{ $account->conversion->title() }}</td>
           <td>
             @if ($fctr_account = $account->fctr_account)
               {{ $fctr_account->title }}
@@ -54,7 +54,7 @@
           <td>
             <x-ellipsis
             edit-modal-id="editModal{{ $account->id }}"
-            delete-action="/master/accounts/{{ $account->id }}" />
+            delete-action="/accounts/{{ $account->id }}" />
           </td>
         </tr>
       @endforeach
@@ -63,7 +63,7 @@
   
   @foreach ($accounts as $account)
     <x-modal id="editModal{{ $account->id }}" title="編集">
-      <form action="/master/accounts/{{ $account->id }}" method="post">
+      <form action="/accounts/{{ $account->id }}" method="post">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -77,8 +77,9 @@
         <div class="mb-3">
           <label class="form-label">明細/集計</label>
           <select class="form-select" name="detail_summary">
-            <option value="明細科目" @selected($account->detail_summary === '明細科目')>明細科目</option>
-            <option value="集計科目" @selected($account->detail_summary === '集計科目')>集計科目</option>
+            @foreach (App\Enums\DetailSummary::cases() as $case)
+              <option value="{{ $case }}" @selected($account->detail_summary === $case)>{{ $case->title() }}</option>
+            @endforeach
           </select>
         </div>
         <div class="mb-3">
@@ -100,8 +101,9 @@
         <div class="mb-3">
           <label class="form-label">貸借</label>
           <select class="form-select" name="dr_cr">
-            <option value="貸方" @selected($account->dr_cr === '貸方')>貸方</option>
-            <option value="借方" @selected($account->dr_cr === '借方')>借方</option>
+            @foreach (App\Enums\DrCr::cases() as $case)
+              <option value="{{ $case }}" @selected($account->dr_cr === $case)>{{ $case->title() }}</option>
+            @endforeach
           </select>
         </div>
         <div class="mb-3">
@@ -129,8 +131,9 @@
         <div class="mb-3">
           <label class="form-label">換算レート区分</label>
           <select class="form-select" name="conversion">
-            <option value="期末日レート" @selected($account->conversion === '期末日レート')>期末日レート</option>
-            <option value="期中平均レート" @selected($account->conversion === '期中平均レート')>期中平均レート</option>
+            @foreach (App\Enums\Conversion::cases() as $case)
+              <option value="{{ $case }}" @selected($account->conversion === $case)>{{ $case->title() }}</option>
+            @endforeach
           </select>
         </div>
         <div class="mb-3">
@@ -152,7 +155,7 @@
     </x-modal>   
   @endforeach
   <x-modal id="createModal" title="新規作成">
-    <form action="/master/accounts" method="post">
+    <form action="/clients/{{ $client->id }}/accounts" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">勘定科目名称</label>
@@ -165,8 +168,9 @@
       <div class="mb-3">
         <label class="form-label">明細/集計</label>
         <select class="form-select" name="detail_summary">
-          <option value="明細科目">明細科目</option>
-          <option value="集計科目">集計科目</option>
+          @foreach (App\Enums\DetailSummary::cases() as $case)
+            <option value="{{ $case }}">{{ $case->title() }}</option>
+          @endforeach
         </select>
       </div>
       <div class="mb-3">
@@ -188,8 +192,9 @@
       <div class="mb-3">
         <label class="form-label">貸借</label>
         <select class="form-select" name="dr_cr">
-          <option value="貸方">貸方</option>
-          <option value="借方">借方</option>
+          @foreach (App\Enums\DrCr::cases() as $case)
+            <option value="{{ $case }}">{{ $case->title() }}</option>
+          @endforeach
         </select>
       </div>
       <div class="mb-3">
@@ -211,8 +216,9 @@
       <div class="mb-3">
         <label class="form-label">換算レート区分</label>
         <select class="form-select" name="conversion">
-          <option value="期末日レート">期末日レート</option>
-          <option value="期中平均レート">期中平均レート</option>
+          @foreach (App\Enums\Conversion::cases() as $case)
+            <option value="{{ $case }}">{{ $case->title() }}</option>
+          @endforeach
         </select>
       </div>
       <div class="mb-3">

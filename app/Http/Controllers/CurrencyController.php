@@ -11,7 +11,8 @@ class CurrencyController extends Controller
 {
     public function index (Request $request, Client $client) {
         return view('pages.master.currencies', [
-            'currencies' => $client->currencies
+            'currencies' => $client->currencies,
+            'client' => $client
         ]);
     }
 

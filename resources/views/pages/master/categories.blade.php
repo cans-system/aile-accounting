@@ -28,7 +28,7 @@
           <td>
             <x-ellipsis
             edit-modal-id="editModal{{ $category->id }}"
-            delete-action="/master/categories/{{ $category->id }}" />
+            delete-action="/categories/{{ $category->id }}" />
           </td>
         </tr>
       @endforeach
@@ -37,7 +37,7 @@
   
   @foreach ($categories as $category)
     <x-modal id="editModal{{ $category->id }}" title="編集">
-      <form action="/master/categories/{{ $category->id }}" method="post">
+      <form action="/categories/{{ $category->id }}" method="post">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -54,7 +54,7 @@
   @endforeach
 
   <x-modal id="createCompany" title="新規作成">
-    <form action="/master/categories" method="post">
+    <form action="/categories" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">科目分類名称</label>

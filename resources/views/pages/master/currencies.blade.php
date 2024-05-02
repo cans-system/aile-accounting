@@ -20,7 +20,7 @@
           <td>
             <x-ellipsis
             edit-modal-id="editModal{{ $currency->id }}"
-            delete-action="/master/currencies/{{ $currency->id }}" />
+            delete-action="/currencies/{{ $currency->id }}" />
           </td>
         </tr>
       @endforeach
@@ -29,7 +29,7 @@
   
   @foreach ($currencies as $currency)
     <x-modal id="editModal{{ $currency->id }}" title="編集">
-      <form action="/master/currencies/{{ $currency->id }}" method="post">
+      <form action="/currencies/{{ $currency->id }}" method="post">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -42,7 +42,7 @@
   @endforeach
 
   <x-modal id="createModal" title="新規作成">
-    <form action="/master/currencies" method="post">
+    <form action="/clients/{{ $client->id }}/currencies" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">通貨名称</label>

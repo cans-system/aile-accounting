@@ -20,7 +20,7 @@
           <td>
             <x-ellipsis
             edit-modal-id="editModal{{ $list->id }}"
-            delete-action="/master/disclosed_account_lists/{{ $list->id }}" />
+            delete-action="/disclosed_account_lists/{{ $list->id }}" />
           </td>
         </tr>
       @endforeach
@@ -29,7 +29,7 @@
   
   @foreach ($lists as $list)
     <x-modal id="editModal{{ $list->id }}" title="編集">
-      <form action="/master/disclosed_account_lists/{{ $list->id }}" method="post">
+      <form action="/disclosed_account_lists/{{ $list->id }}" method="post">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -42,7 +42,7 @@
   @endforeach
 
   <x-modal id="createModal" title="新規作成">
-    <form action="/master/disclosed_account_lists" method="post">
+    <form action="/clients/{{ $client->id }}/disclosed_account_lists" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">開示科目名称</label>

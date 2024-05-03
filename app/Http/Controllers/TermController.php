@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Term;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class TermController extends Controller
 {

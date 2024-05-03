@@ -36,7 +36,13 @@ class Client extends Model
     public function disclosed_business_lists() {
         return $this->hasMany(DisclosedBusinessList::class);
     }
+    public function journal_categories() {
+        return $this->hasMany(JournalCategory::class);
+    }
     public function businesses() {
         return $this->hasManyThrough(Business::class, DisclosedBusinessList::class);
+    }
+    public function details() {
+        return $this->hasManyThrough(Detail::class, JournalCategory::class);
     }
 }

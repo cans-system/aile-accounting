@@ -9,8 +9,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CurrencyController;
+use App\Http\Controllers\DetailController;
 use App\Http\Controllers\DisclosedAccountListController;
 use App\Http\Controllers\DisclosedBusinessListController;
+use App\Http\Controllers\JournalCategoryController;
 use App\Http\Controllers\RateController;
 use App\Http\Controllers\RecordController;
 use App\Http\Controllers\RoleController;
@@ -61,12 +63,16 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('rates', RateController::class)->only(['index', 'store']);
         Route::resource('businesses', BusinessController::class)->only(['index', 'store']);
         Route::resource('disclosed_business_lists', DisclosedBusinessListController::class)->only(['index', 'store']);
-
+        Route::resource('journal_categories', JournalCategoryController::class)->only(['index', 'store']);
+        
         # package
         Route::resource('{statement}', RecordController::class)->only(['index', 'store'])
         ->whereIn('statement', array_map(fn ($case) => $case->value, Statement::cases()));
         Route::put('{statement}', [RecordController::class, 'sync']);
-
+        
+        # journal
+        Route::resource('details', DetailController::class)->only(['index', 'store']);
+        
         # managemant
         Route::resource('users', UserController::class)->only(['index', 'store']);
         Route::resource('roles', RoleController::class)->only(['index', 'store']);

@@ -42,7 +42,7 @@ class PageSeeder extends Seeder
                     ['外貨修正仕訳分類マスタ', 'terms', false]
                 ]],
                 ['連結仕訳関連マスタ', [
-                    ['連結仕訳分類マスタ', 'terms', false],
+                    ['連結仕訳分類マスタ', 'journal_categories', true],
                     ['自動仕訳設定マスタ', 'terms', false],
                     ['持分比率設定マスタ', 'terms', false],
                     ['法定実効税率マスタ', 'terms', false],

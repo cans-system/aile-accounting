@@ -13,7 +13,8 @@ class CompanyController extends Controller
         return view('pages.master.companies', [
             'companies' => $client->companies,
             'currencies' => $client->currencies,
-            'businesses' => $client->businesses
+            'businesses' => $client->businesses,
+            'client' => $client
         ]);
     }
 

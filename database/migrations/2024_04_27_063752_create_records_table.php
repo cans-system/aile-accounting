@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('records', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('amount');
-            $table->foreignId('category_id');
+            $table->string('note');
+            $table->foreignId('account_id')->constrained();
+            $table->foreignId('term_id')->constrained();
             $table->timestamps();
+            $table->unique(['account_id', 'term_id']);
         });
     }
 

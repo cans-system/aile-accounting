@@ -9,6 +9,7 @@ use App\Enums\Statement;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Account extends Model
 {
@@ -35,5 +36,11 @@ class Account extends Model
     }
     public function fctr_account(): BelongsTo {
         return $this->belongsTo(self::class, 'fctr_account_id');
+    }
+    public function records(): HasMany {
+        return $this->hasMany(Record::class);
+    }
+    public function record(int $term_id): Record|null {
+        return $this->records()->where('term_id', $term_id)->first();
     }
 }

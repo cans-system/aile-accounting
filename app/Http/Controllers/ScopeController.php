@@ -15,7 +15,8 @@ class ScopeController extends Controller
         $companies = $client->companies;
         return view('pages.master.scopes', [
             'scopes' => $scopes,
-            'companies' => $companies
+            'companies' => $client->companies,
+            'client' => $client
         ]);
     }
 

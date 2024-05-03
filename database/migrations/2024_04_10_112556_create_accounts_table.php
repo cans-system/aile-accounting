@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('title_en');
             $table->unsignedTinyInteger('detail_summary');
-            $table->unsignedtinyInteger('statement');
+            $table->string('statement');
             $table->foreignId('category_id')->constrained();
             $table->unsignedTinyInteger('dr_cr');
             $table->foreignId('year_disclosed_account_list_id')->constrained('disclosed_account_lists');

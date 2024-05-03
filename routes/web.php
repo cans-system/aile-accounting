@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\Statement;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -11,11 +12,11 @@ use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\DisclosedAccountListController;
 use App\Http\Controllers\DisclosedBusinessListController;
 use App\Http\Controllers\RateController;
+use App\Http\Controllers\RecordController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScopeController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TermController;
-use App\Http\Middleware\SupportLogin;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,7 +35,7 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
 });
 
-Route::middleware(['auth', SupportLogin::class])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::post('/change_term', [SessionController::class, 'change_term']);
@@ -61,6 +62,11 @@ Route::middleware(['auth', SupportLogin::class])->group(function () {
         Route::resource('businesses', BusinessController::class)->only(['index', 'store']);
         Route::resource('disclosed_business_lists', DisclosedBusinessListController::class)->only(['index', 'store']);
 
+        # package
+        Route::resource('{statement}', RecordController::class)->only(['index', 'store'])
+        ->whereIn('statement', array_map(fn ($case) => $case->value, Statement::cases()));
+        Route::put('{statement}', [RecordController::class, 'sync']);
+
         # managemant
         Route::resource('users', UserController::class)->only(['index', 'store']);
         Route::resource('roles', RoleController::class)->only(['index', 'store']);
@@ -78,11 +84,8 @@ Route::middleware(['auth', SupportLogin::class])->group(function () {
     Route::resource('businesses', BusinessController::class)->only(['update', 'destroy']);
     Route::resource('disclosed_business_lists', DisclosedBusinessListController::class)->only(['update', 'destroy']);
 
-    Route::prefix('package')->group(function () {
-        // Route::resource('records', ::class)->only([
-        //     'index', 'store', 'update', 'destroy'
-        // ]);
-    });
+    # package
+    Route::resource('records', RecordController::class)->only(['update', 'destroy']);
 
     # management
     Route::resource('users', UserController::class)->only(['update', 'destroy']);

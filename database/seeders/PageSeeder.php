@@ -16,7 +16,7 @@ class PageSeeder extends Seeder
     public function run(): void
     {
         $pages = [
-            ['マスタ設定', 'master', [
+            ['マスタ設定', 'master', 0, [
                 ['会計期間マスタ', [
                     ['会計期間マスタ', 'terms', true]
                 ]],
@@ -50,7 +50,7 @@ class PageSeeder extends Seeder
                     ['ネット処理設定マスタ', 'terms', false]
                 ]],
             ]],
-            ['連結パッケージ', 'package', [
+            ['連結パッケージ', 'package', -100, [
                 ['個別財務諸表', [
                     ['貸借対照表', 'bs', true],
                     ['損益計算書', 'pl', true],
@@ -64,10 +64,10 @@ class PageSeeder extends Seeder
                     ['承認', 'approval', false]
                 ]],
             ]],
-            ['外貨換算', 'conversion', [
+            ['外貨換算', 'conversion', -200, [
                 
             ]],
-            ['連結仕訳', 'journal', [
+            ['連結仕訳', 'journal', -300, [
                 ['連結仕訳入力', [
                     ['連結仕訳入力・承認', '', false]
                 ]],
@@ -78,7 +78,7 @@ class PageSeeder extends Seeder
                     ['連結仕訳別残高確認', '', false]
                 ]],
             ]],
-            ['連結精算表', 'worksheet', [
+            ['連結精算表', 'worksheet', -400, [
                 ['連結精算表', [
                     ['サマリー', 'summary', false],
                     ['仕訳分類別', '', false],
@@ -91,13 +91,13 @@ class PageSeeder extends Seeder
                     ['連結総勘定元帳', '', false]
                 ]],
             ]],
-            ['連結財務諸表', 'statement', [
+            ['連結財務諸表', 'statement', -500, [
                 
             ]],
-            ['注記情報', 'info', [
+            ['注記情報', 'info', -600, [
                 
             ]],
-            ['管理', 'management', [
+            ['管理', 'management', -700, [
                 ['ユーザー・ロール管理', [
                     ['ユーザー管理', 'users', true],
                     ['ロール管理', 'roles', true]
@@ -110,9 +110,9 @@ class PageSeeder extends Seeder
         ];
 
         foreach ($pages as $item) {
-            $bigGroup = new BigGroup(['title' => $item[0], 'path' => $item[1]]);
+            $bigGroup = new BigGroup(['title' => $item[0], 'path' => $item[1], 'left' => $item[2]]);
             $bigGroup->save();
-            foreach ($item[2] as $item) {
+            foreach ($item[3] as $item) {
                 $smallGroup = $bigGroup->small_groups()->save(
                     new SmallGroup(['title' => $item[0]])
                 );

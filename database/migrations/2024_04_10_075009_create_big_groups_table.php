@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('path');
+            $table->integer('left');
             $table->timestamps();
         });
     }

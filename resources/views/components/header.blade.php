@@ -67,7 +67,7 @@
       @foreach ($big_groups as $big_group)
         <li class="position-relative hover">
           <a class="text-decoration-none p-2 text-reset d-block" role="button">{{ $big_group->title }}</a>
-          <div class="position-absolute top-100 bg-text-blue p-3 hover-list z-1" style="width: 900px; display: none;">
+          <div class="position-absolute top-100 bg-text-blue p-3 hover-list z-1" style="width: 900px; display: none; left: {{ $big_group->left }}px">
             <div class="" style="column-count: 3;">
               @foreach ($big_group->small_groups as $small_group)
                 <div class="col mb-4" style="break-inside: avoid;">

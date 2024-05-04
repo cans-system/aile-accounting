@@ -10,9 +10,8 @@ use Illuminate\Http\Request;
 class JournalCategoryController extends Controller
 {
     public function index (Request $request, Client $client) {
-        $journal_categories = $client->journal_categories;
         return view('pages.master.journal_categories', [
-            'journal_categories' => $journal_categories,
+            'journal_categories' => $client->journal_categories,
             'client' => $client
         ]);
     }

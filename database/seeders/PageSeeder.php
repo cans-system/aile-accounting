@@ -69,13 +69,13 @@ class PageSeeder extends Seeder
             ]],
             ['連結仕訳', 'journal', -300, [
                 ['連結仕訳入力', [
-                    ['連結仕訳入力・承認', '', false]
+                    ['連結仕訳入力・承認', 'details_edit', true]
                 ]],
                 ['連結仕訳帳', [
-                    ['連結仕訳帳', '', false]
+                    ['連結仕訳帳', 'details', true]
                 ]],
                 ['連結仕訳別残高確認', [
-                    ['連結仕訳別残高確認', '', false]
+                    ['連結仕訳別残高確認', 'balance', true]
                 ]],
             ]],
             ['連結精算表', 'worksheet', -400, [

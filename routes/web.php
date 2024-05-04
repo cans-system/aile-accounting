@@ -71,7 +71,11 @@ Route::middleware(['auth'])->group(function () {
         Route::put('{statement}', [RecordController::class, 'sync']);
         
         # journal
-        Route::resource('details', DetailController::class)->only(['index', 'store']);
+        Route::get('details_edit', [DetailController::class, 'edit']);
+        Route::get('details', [DetailController::class, 'index']);
+        Route::post('details', [DetailController::class, 'store']);
+
+        Route::get('balance', [DetailController::class, 'balance']);
         
         # managemant
         Route::resource('users', UserController::class)->only(['index', 'store']);

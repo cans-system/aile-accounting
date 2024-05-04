@@ -20,7 +20,7 @@
           <div class="dropdown">
             <a class="text-decoration-none p-2 text-reset dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               @if ($selected_term = Session::get('selected_term'))
-                {{ date('Y年n月期', strtotime($selected_term->month)) }}_{{ $selected_term->type }}
+                {{ date('Y年n月期', strtotime($selected_term->month)) }}_{{ $selected_term->type->title() }}
               @else
                 会計期間が選択されていません
               @endif
@@ -32,7 +32,7 @@
                     @csrf
                     <input type="hidden" name="term_id" value="{{ $term->id }}">
                     <button class="dropdown-item">
-                      {{ date('Y年n月期', strtotime($term->month)) }}_{{ $term->type }}
+                      {{ date('Y年n月期', strtotime($term->month)) }}_{{ $term->type->title() }}
                     </button>
                   </form>
                 </li>

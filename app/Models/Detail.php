@@ -10,11 +10,15 @@ class Detail extends Model
 {
     use HasFactory;
 
-    public function business(): BelongsTo {
-        return $this->belongsTo(Company::class);
+    public function company_business(): BelongsTo {
+        return $this->belongsTo(CompanyBusiness::class);
     }
 
-    public function target_business(): BelongsTo {
-        return $this->belongsTo(Company::class, 'target_business_id');
+    public function target_company_business(): BelongsTo {
+        return $this->belongsTo(CompanyBusiness::class, 'target_company_business_id');
+    }
+
+    public function account(): BelongsTo {
+        return $this->belongsTo(Account::class);
     }
 }

@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Staudenmeir\EloquentHasManyDeep\HasManyDeep;
 
 class Client extends Model
 {
     use HasFactory;
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
     public function roles() {
         return $this->hasMany(Role::class);
@@ -39,10 +41,19 @@ class Client extends Model
     public function journal_categories() {
         return $this->hasMany(JournalCategory::class);
     }
+    public function journal_subcategories() {
+        return $this->hasManyThrough(JournalSubcategory::class, JournalCategory::class);
+    }
     public function businesses() {
         return $this->hasManyThrough(Business::class, DisclosedBusinessList::class);
     }
-    public function details() {
-        return $this->hasManyThrough(Detail::class, JournalCategory::class);
+    public function cbs() {
+        return $this->hasManyThrough(CompanyBusiness::class, Company::class);
+    }
+    public function jscs() {
+        return $this->hasManyThrough(JournalSubcategory::class, JournalCategory::class);
+    }
+    public function details(): HasManyDeep {
+        return $this->hasManyDeep(Detail::class, [JournalCategory::class, JournalSubcategory::class]);
     }
 }

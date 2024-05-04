@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
     public function index (Request $request, Client $client) {
-        $categories = $client->categories;
         return view('pages.master.categories', [
-            'categories' => $categories
+            'categories' => $client->categories,
+            'client' => $client
         ]);
     }
 

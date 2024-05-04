@@ -17,12 +17,12 @@
     <tbody>
       @foreach ($terms as $term)
         <tr>
-          <td>{{ $term->group }}</td>
+          <td>{{ $term->group->title() }}</td>
           <td>{{ $term->id }}</td>
           <td>
-            {{ date('Y年n月期', strtotime($term->month)) }}_{{ $term->type }}
+            {{ date('Y年n月期', strtotime($term->month)) }}_{{ $term->type->title() }}
           </td>
-          <td>{{ $term->period }}</td>
+          <td>{{ $term->period->title() }}</td>
           <td>
             <x-ellipsis
             edit-modal-id="editModal{{ $term->id }}"
@@ -41,8 +41,9 @@
         <div class="mb-3">
           <label class="form-label">分類</label>
           <select class="form-select" name="group">
-            <option value="実績" @selected($term->group === "実績")>実績</option>
-            <option value="将来情報" @selected($term->group === "将来情報")>将来情報</option>
+            @foreach (App\Enums\TermGroup::cases() as $case)
+              <option value="{{ $case }}" @selected($term->group === $case)>{{ $case->title() }}</option>
+            @endforeach
           </select>
         </div>
         <div class="mb-3">
@@ -50,19 +51,18 @@
           <div class="input-group">
             <input type="month" name="month" value="{{ $term->month }}" class="form-control" required>
             <select class="form-select" name="type">
-              <option value="実績" @selected($term->type === "実績")>実績</option>
-              <option value="計画" @selected($term->type === "計画")>計画</option>
-              <option value="見込" @selected($term->type === "見込")>見込</option>
-              <option value="予算" @selected($term->type === "予算")>予算</option>
+              @foreach (App\Enums\TermType::cases() as $case)
+                <option value="{{ $case }}" @selected($term->type === $case)>{{ $case->title() }}</option>
+              @endforeach
             </select>
           </div>
         </div>
         <div class="mb-3">
           <label class="form-label">月次/四半期/年度</label>
           <select class="form-select" name="period">
-            <option value="月次" @selected($term->period === "月次")>月次</option>
-            <option value="四半期" @selected($term->period === "四半期")>四半期</option>
-            <option value="年度" @selected($term->period === "年度")>年度</option>
+            @foreach (App\Enums\TermPeriod::cases() as $case)
+              <option value="{{ $case }}" @selected($term->period === $case)>{{ $case->title() }}</option>
+            @endforeach
           </select>
         </div>
         <button type="submit" class="btn btn-primary">更新</button>
@@ -76,28 +76,28 @@
       <div class="mb-3">
         <label class="form-label">分類</label>
         <select class="form-select" name="group">
-          <option value="実績">実績</option>
-          <option value="将来情報">将来情報</option>
+          @foreach (App\Enums\TermGroup::cases() as $case)
+            <option value="{{ $case }}">{{ $case->title() }}</option>
+          @endforeach
         </select>
       </div>
       <div class="mb-3">
         <label class="form-label">会計期間</label>
         <div class="input-group">
-          <input type="month" name="month" class="form-control" required>
+          <input type="month" name="month" value="{{ $term->month }}" class="form-control" required>
           <select class="form-select" name="type">
-            <option value="実績">実績</option>
-            <option value="計画">計画</option>
-            <option value="見込">見込</option>
-            <option value="予算">予算</option>
+            @foreach (App\Enums\TermType::cases() as $case)
+              <option value="{{ $case }}">{{ $case->title() }}</option>
+            @endforeach
           </select>
         </div>
       </div>
       <div class="mb-3">
         <label class="form-label">月次/四半期/年度</label>
         <select class="form-select" name="period">
-          <option value="月次">月次</option>
-          <option value="四半期">四半期</option>
-          <option value="年度">年度</option>
+          @foreach (App\Enums\TermPeriod::cases() as $case)
+            <option value="{{ $case }}">{{ $case->title() }}</option>
+          @endforeach
         </select>
       </div>
       <button type="submit" class="btn btn-primary">作成</button>

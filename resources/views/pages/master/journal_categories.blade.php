@@ -17,45 +17,14 @@
     <tbody>
       @foreach ($journal_categories as $category)
         <tr>
-          <td rowspan="2">{{ $category->id }}</td>
+          <td>{{ $category->id }}</td>
           <td>{{ $category->modify->title() }}</td>
           <td>{{ $category->title }}</td>
           <td>{{ $category->carryover->title() }}</td>
-          <td rowspan="2">
+          <td>
             <x-ellipsis
             edit-modal-id="editModal{{ $category->id }}"
             delete-action="/journal_categories/{{ $category->id }}" />
-          </td>
-        </tr>
-        <tr>
-          <td colspan="3">
-            <span class="fw-bold">小分類</span>
-            <x-tablechild>
-              <thead>
-                <tr class="table-lightblue">
-                  <th>ID</th>
-                  <th>個別修正/連結修正</th>
-                  <th>連結仕訳分類名称</th>
-                  <th>繰越タイプ</th>
-                  <th>操作</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($journal_categories as $category)
-                  <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->modify->title() }}</td>
-                    <td>{{ $category->title }}</td>
-                    <td>{{ $category->carryover->title() }}</td>
-                    <td>
-                      <x-ellipsis
-                      edit-modal-id="editModal{{ $category->id }}"
-                      delete-action="/journal_categories/{{ $category->id }}" />
-                    </td>
-                  </tr>
-                @endforeach
-              </tbody>
-            </x-tablechild>
           </td>
         </tr>
       @endforeach
@@ -69,7 +38,7 @@
         @method('PUT')
         <div class="mb-3">
           <label class="form-label">個別修正/連結修正</label>
-          <select class="form-select" name="detail_summary">
+          <select class="form-select" name="modify">
             @foreach (App\Enums\Modify::cases() as $case)
               <option value="{{ $case }}" @selected($category->modify === $case)>{{ $case->title() }}</option>
             @endforeach

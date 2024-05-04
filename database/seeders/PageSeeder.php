@@ -43,6 +43,7 @@ class PageSeeder extends Seeder
                 ]],
                 ['連結仕訳関連マスタ', [
                     ['連結仕訳分類マスタ', 'journal_categories', true],
+                    ['連結仕訳小分類マスタ', 'journal_subcategories', true],
                     ['自動仕訳設定マスタ', 'terms', false],
                     ['持分比率設定マスタ', 'terms', false],
                     ['法定実効税率マスタ', 'terms', false],

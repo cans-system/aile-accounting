@@ -13,16 +13,14 @@ return new class extends Migration
     {
         Schema::create('details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained(); // ここらの構造どうするか考える 5/3
-            $table->foreignId('business_id')->constrained();
-            $table->foreignId('target_company_id')->constrained('companies');
-            $table->foreignId('target_business_id')->constrained('businesses');
+            $table->foreignId('company_business_id')->constrained('company_business');
+            $table->foreignId('target_company_business_id')->constrained('company_business');
             $table->foreignId('account_id')->constrained();
             $table->integer('dr_amount');
             $table->integer('cr_amount');
             $table->string('note');
-            $table->string('file_name');
-            $table->foreignId('journal_category_id')->constrained();
+            $table->string('file_name')->nullable();
+            $table->foreignId('journal_subcategory_id')->constrained();
             $table->timestamps();
         });
     }

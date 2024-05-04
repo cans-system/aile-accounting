@@ -17,28 +17,27 @@ class JournalCategoryController extends Controller
     }
 
     public function store (Request $request, Client $client) {
-        $category = new JournalCategory();
-        $category->title = $request->title;
-        $category->modify = $request->modify;
-        $category->carryover = $request->carryover;
-        $client->journal_categories()->save($category);
+        $journal_category = new JournalCategory();
+        $journal_category->title = $request->title;
+        $journal_category->modify = $request->modify;
+        $journal_category->carryover = $request->carryover;
+        $client->journal_categories()->save($journal_category);
 
-        return back()->with('toast', ['success', '科目分類を新規作成しました']);
+        return back()->with('toast', ['success', '連結仕訳分類を新規作成しました']);
     }
 
-    public function update (Request $request, JournalCategory $category) {
-        $category->title = $request->title;
-        $category->modify = $request->modify;
-        $category->modify = $request->modify;
-        $category->carryover = $request->carryover;
-        $category->save();
+    public function update (Request $request, JournalCategory $journal_category) {
+        $journal_category->title = $request->title;
+        $journal_category->modify = $request->modify;
+        $journal_category->carryover = $request->carryover;
+        $journal_category->save();
 
-        return back()->with('toast', ['success', '科目分類を更新しました']);
+        return back()->with('toast', ['success', '連結仕訳分類を更新しました']);
     }
 
-    public function destroy (Request $request, JournalCategory $category) {
-        $category->delete();
+    public function destroy (Request $request, JournalCategory $journal_category) {
+        $journal_category->delete();
 
-        return back()->with('toast', ['success', '科目分類を削除しました']);
+        return back()->with('toast', ['success', '連結仕訳分類を削除しました']);
     }
 }

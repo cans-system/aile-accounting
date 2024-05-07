@@ -14,15 +14,17 @@ return new class extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->char('code', 7);
             $table->string('title_en');
             $table->unsignedTinyInteger('detail_summary');
             $table->string('statement');
             $table->foreignId('category_id')->constrained();
             $table->unsignedTinyInteger('dr_cr');
+            $table->foreignId('fcta_account_id')->nullable();
+            $table->foreignId('carryover_account_id')->nullable();
             $table->foreignId('year_disclosed_account_list_id')->constrained('disclosed_account_lists');
             $table->foreignId('quarter_disclosed_account_list_id')->constrained('disclosed_account_lists');
-            $table->unsignedTinyInteger('conversion');
-            $table->foreignId('fctr_account_id')->nullable()->constrained('accounts');
+            $table->unsignedTinyInteger('conversion')->nullable();
             $table->boolean('enabled');
             $table->timestamps();
         });

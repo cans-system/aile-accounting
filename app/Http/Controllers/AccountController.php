@@ -28,7 +28,7 @@ class AccountController extends Controller
         $account->year_disclosed_account_list_id = $request->year_disclosed_account_list_id;
         $account->quarter_disclosed_account_list_id = $request->quarter_disclosed_account_list_id;
         $account->conversion = $request->conversion;
-        $account->fctr_account_id = $request->fctr_account_id;
+        $account->fcta_account_id = $request->fcta_account_id;
         $account->enabled = $request->enabled;
         $account->save();
 
@@ -45,7 +45,7 @@ class AccountController extends Controller
         $account->year_disclosed_account_list_id = $request->year_disclosed_account_list_id;
         $account->quarter_disclosed_account_list_id = $request->quarter_disclosed_account_list_id;
         $account->conversion = $request->conversion;
-        $account->fctr_account_id = $request->fctr_account_id;
+        $account->fcta_account_id = $request->fcta_account_id;
         $account->enabled = $request->enabled;
         $account->save();
 

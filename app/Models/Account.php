@@ -34,8 +34,11 @@ class Account extends Model
     public function statement(): Statement {
         return Statement::from($this->statement);
     }
-    public function fctr_account(): BelongsTo {
-        return $this->belongsTo(self::class, 'fctr_account_id');
+    public function fcta_account(): BelongsTo {
+        return $this->belongsTo(self::class, 'fcta_account_id', 'code');
+    }
+    public function carryover_account(): BelongsTo {
+        return $this->belongsTo(self::class, 'carryover_account_id', 'code');
     }
     public function records(): HasMany {
         return $this->hasMany(Record::class);

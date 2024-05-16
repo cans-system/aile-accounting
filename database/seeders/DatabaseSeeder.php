@@ -26,7 +26,6 @@ use App\Models\JournalSubcategory;
 use App\Models\Role;
 use App\Models\Term;
 use App\Models\User;
-use Database\Seeders\Data\AccountsData;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -137,7 +136,7 @@ class DatabaseSeeder extends Seeder
                     'quarter_disclosed_account_list_id' => $account[11],
                     'enabled' => true
                 ];
-            }, AccountsData::$data)
+            }, \Database\Seeders\Data\AccountsData::$data)
         );
         $terms = [
             ['month' => '2023-3', 'type' => TermType::RESULTS, 'period' => TermPeriod::YEAR],

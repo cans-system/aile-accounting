@@ -5,11 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Enums\Carryover;
-use App\Enums\Conversion;
-use App\Enums\DetailSummary;
-use App\Enums\DrCr;
 use App\Enums\Modify;
-use App\Enums\Statement;
 use App\Enums\TermGroup;
 use App\Enums\TermPeriod;
 use App\Enums\TermType;
@@ -136,7 +132,7 @@ class DatabaseSeeder extends Seeder
                     'quarter_disclosed_account_list_id' => $account[11],
                     'enabled' => true
                 ];
-            }, \Database\Seeders\Data\AccountsData::$data)
+            }, AccountsData::$data)
         );
         $terms = [
             ['month' => '2023-3', 'type' => TermType::RESULTS, 'period' => TermPeriod::YEAR],

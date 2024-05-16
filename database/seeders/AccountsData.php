@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Data;
+namespace Database\Seeders;
 
 use App\Enums\Conversion;
 use App\Enums\DetailSummary;

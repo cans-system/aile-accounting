@@ -26,8 +26,8 @@
             <td>{{ $account->category->title }}</td>
             <td>{{ $account->dr_cr->title() }}</td>
             <td></td>
-            <td class="p-0"><input type="number" name="accounts[{{ $account->id }}][amount]" value="{{ $account->record(Session::get('selected_term')->id)?->amount }}" class="p-2 border-0"></td>
-            <td class="p-0"><input type="text" name="accounts[{{ $account->id }}][note]" value="{{ $account->record(Session::get('selected_term')->id)?->note }}" class="p-2 border-0"></td>
+            <td class="p-0"><input type="number" name="accounts[{{ $account->id }}][amount]" value="{{ $account->record(Session::get('selected_term')?->id)?->amount }}" class="p-2 border-0"></td>
+            <td class="p-0"><input type="text" name="accounts[{{ $account->id }}][note]" value="{{ $account->record(Session::get('selected_term')?->id)?->note }}" class="p-2 border-0"></td>
           </tr>
         @endforeach
       </form>

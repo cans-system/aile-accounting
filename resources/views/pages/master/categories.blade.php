@@ -37,7 +37,7 @@
   
   @foreach ($categories as $category)
     <x-ui.modal id="editModal{{ $category->id }}" title="編集">
-      <form action="/categories/{{ $category->id }}" method="post">
+      <form action="" method="post">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -54,7 +54,7 @@
   @endforeach
 
   <x-ui.modal id="createCompany" title="新規作成">
-    <form action="/categories" method="post">
+    <form action="{{ route('clients.categories.store', ['client' => $client->id]) }}" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">科目分類名称</label>

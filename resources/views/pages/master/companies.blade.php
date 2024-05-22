@@ -90,7 +90,7 @@
   @endforeach
 
   <x-ui.modal id="createCompany" title="新規作成">
-    <form action="/companies" method="post">
+    <form action="{{ route('clients.companies.store', ['client' => $client->id]) }}" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">会社名</label>

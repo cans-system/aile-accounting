@@ -56,7 +56,7 @@
   @endforeach
 
   <x-ui.modal id="createModal" title="新規作成">
-    <form action="/clients/{{ $client->id }}/rates" method="post">
+    <form action="{{ route('clients.rates.store', ['client' => $client->id]) }}" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">通貨</label>

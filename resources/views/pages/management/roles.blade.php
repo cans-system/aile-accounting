@@ -76,7 +76,7 @@
   @endforeach
 
   <x-ui.modal id="createModal" title="新規作成">
-    <form action="/clients/{{ $client->id }}/roles" method="post">
+    <form action="{{ route('clients.roles.store', ['client' => $client->id]) }}" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">ロール</label>

@@ -41,64 +41,40 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('clients/{client}')->group(function () {
-
-        # master
-        Route::resource('terms', TermController::class)->only(['index', 'store']);
-        Route::resource('companies', CompanyController::class)->only(['index', 'store']);
-        Route::resource('scopes', ScopeController::class)->only(['index', 'store']);
-        Route::resource('categories', CategoryController::class)->only(['index', 'store']);
-        Route::resource('accounts', AccountController::class)->only(['index', 'store']);
-        Route::resource('disclosed_account_lists', DisclosedAccountListController::class)->only(['index', 'store']);
-        Route::resource('currencies', CurrencyController::class)->only(['index', 'store']);
-        Route::resource('rates', RateController::class)->only(['index', 'store']);
-        Route::resource('businesses', BusinessController::class)->only(['index', 'store']);
-        Route::resource('disclosed_business_lists', DisclosedBusinessListController::class)->only(['index', 'store']);
-        Route::resource('journal_categories', JournalCategoryController::class)->only(['index', 'store']);
-        Route::resource('journal_subcategories', JournalSubcategoryController::class)->only(['index', 'store']);
-        
-        # package
-        Route::resource('{statement}', RecordController::class)->only(['index', 'store'])
-        ->whereIn('statement', array_map(fn ($case) => $case->value, Statement::cases()));
         Route::put('{statement}', [RecordController::class, 'sync']);
-        
-        # journal
-        Route::get('details_edit', [DetailController::class, 'edit']);
-        Route::get('details', [DetailController::class, 'index']);
-        Route::post('details', [DetailController::class, 'store']);
-
-        Route::get('balance', [DetailController::class, 'balance']);
-        
-        # managemant
-        Route::resource('users', UserController::class)->only(['index', 'store']);
-        Route::resource('roles', RoleController::class)->only(['index', 'store']);
     });
 
     # master
-    Route::resource('terms', TermController::class)->only(['update', 'destroy']);
-    Route::resource('companies', CompanyController::class)->only(['update', 'destroy']);
-    Route::resource('scopes', ScopeController::class)->only(['update', 'destroy']);
-    Route::resource('categories', CategoryController::class)->only(['update', 'destroy']);
-    Route::resource('accounts', AccountController::class)->only(['update', 'destroy']);
-    Route::resource('disclosed_account_lists', DisclosedAccountListController::class)->only(['update', 'destroy']);
-    Route::resource('currencies', CurrencyController::class)->only(['update', 'destroy']);
-    Route::resource('rates', RateController::class)->only(['update', 'destroy']);
-    Route::resource('businesses', BusinessController::class)->only(['update', 'destroy']);
-    Route::resource('disclosed_business_lists', DisclosedBusinessListController::class)->only(['update', 'destroy']);
-    Route::resource('journal_categories', JournalCategoryController::class)->only(['update', 'destroy']);
-    Route::resource('journal_subcategories', JournalSubcategoryController::class)->only(['update', 'destroy']);
-
-    # package
-    Route::resource('records', RecordController::class)->only(['update', 'destroy']);
+    Route::apiResource('clients.terms', TermController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.companies', CompanyController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.scopes', ScopeController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.categories', CategoryController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.accounts', AccountController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.disclosed_account_lists', DisclosedAccountListController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.currencies', CurrencyController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.rates', RateController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.businesses', BusinessController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.disclosed_business_lists', DisclosedBusinessListController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.journal_categories', JournalCategoryController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.journal_subcategories', JournalSubcategoryController::class)->shallow()->except(['show']);
     
-    # management
-    Route::resource('users', UserController::class)->only(['update', 'destroy']);
-    Route::resource('roles', RoleController::class)->only(['update', 'destroy']);
+    # package
+    Route::apiResource('clients.{statement}', RecordController::class)->except(['show'])
+    ->whereIn('statement', array_map(fn ($case) => $case->value, Statement::cases()));
+    Route::apiResource('records', RecordController::class)->only(['update', 'destroy']);
     
     # journal
-    Route::resource('details', DetailController::class)->only(['update', 'destroy']);
+    Route::get('details_edit', [DetailController::class, 'edit']);
+    Route::apiResource('clients.details', RecordController::class)->shallow()->except(['show']);
+    Route::get('balance', [DetailController::class, 'balance']);
+    
+    # managemant
+    Route::apiResource('clients.users', UserController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.roles', RoleController::class)->shallow()->except(['show']);
 
+    # admin    
     Route::prefix('admin')->group(function () {
-        Route::resource('clients', ClientController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::apiResource('clients', ClientController::class)->shallow()->except(['show']);
 
         Route::post('/change_support_login_client', [SessionController::class, 'change_support_login_client']);
     });

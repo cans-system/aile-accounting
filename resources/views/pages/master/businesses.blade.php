@@ -62,8 +62,9 @@
       </form>
     </x-ui.modal>   
   @endforeach
+  
   <x-ui.modal id="createModal" title="新規作成">
-    <form action="/clients/{{ $client->id }}/businesses" method="post">
+    <form action="{{ route('clients.businesses.store', ['client' => $client->id]) }}" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">事業セグメント名称</label>

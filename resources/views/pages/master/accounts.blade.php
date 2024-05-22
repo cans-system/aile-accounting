@@ -57,7 +57,7 @@
   
   @foreach ($accounts as $account)
     <x-ui.modal id="editModal{{ $account->id }}" title="編集">
-      <form action="/accounts/{{ $account->id }}" method="post">
+      <form action="" method="post">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -158,8 +158,9 @@
       </form>
     </x-ui.modal>   
   @endforeach
+
   <x-ui.modal id="createModal" title="新規作成">
-    <form action="/clients/{{ $client->id }}/accounts" method="post">
+    <form action="{{ route('clients.accounts.store', ['client' => $client->id]) }}" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">勘定科目名称</label>

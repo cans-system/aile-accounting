@@ -54,7 +54,7 @@
   @endforeach
 
   <x-ui.modal id="createCompany" title="新規作成">
-    <form action="/clients/{{ $client->id }}/journal_subcategories" method="post">
+    <form action="{{ route('clients.journal_subcategories.store', ['client' => $client->id]) }}" method="post">
       @csrf
       <div class="mb-3">
         <label class="form-label">連結仕訳分類</label>

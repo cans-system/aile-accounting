@@ -2,7 +2,32 @@
   <x-breadcrumb client_id="{{ $client->id }}" />
   <p>画面説明：xxxxx</p>
   <div class="mb-4 d-flex gap-5">
-    <button class="btn button" data-bs-toggle="modal" data-bs-target="#createCompany">新規作成</button>
+    <form action="{{ route('clients.journal_categories.store', ['client' => $client->id]) }}" method="post">
+      @csrf
+      <div class="d-flex gap-4 align-items-end">
+        <div>
+          <label class="form-label">個別修正/連結修正</label>
+          <select class="form-select" name="modify">
+            @foreach (App\Enums\Modify::cases() as $case)
+              <option value="{{ $case }}">{{ $case->title() }}</option>
+            @endforeach
+          </select>
+        </div>
+        <div>
+          <label class="form-label">連結仕訳分類名称</label>
+          <input type="text" name="title" class="form-control" required>
+        </div>
+        <div>
+          <label class="form-label">繰越タイプ</label>
+          <select class="form-select" name="carryover">
+            @foreach (App\Enums\Carryover::cases() as $case)
+              <option value="{{ $case }}">{{ $case->title() }}</option>
+            @endforeach
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">作成</button>
+      </div>
+    </form>
   </div>
   <x-ui.table>
     <thead>
@@ -16,75 +41,40 @@
     </thead>
     <tbody>
       @foreach ($journal_categories as $category)
-        <tr>
-          <td>{{ $category->id }}</td>
-          <td>{{ $category->modify->title() }}</td>
-          <td>{{ $category->title }}</td>
-          <td>{{ $category->carryover->title() }}</td>
-          <td>
-            <x-ui.ellipsis
-            edit-modal-id="editModal{{ $category->id }}"
-            delete-action="/journal_categories/{{ $category->id }}" />
-          </td>
-        </tr>
+        <form action="/journal_categories/{{ $category->id }}" method="post" id="update{{ $category->id }}">
+          @csrf
+          @method('PUT')
+        </form>
+        <form action="/journal_categories/{{ $category->id }}" method="post" id="destroy{{ $category->id }}">
+          @csrf
+          @method('DELETE')
+        </form>
+          <tr>
+            <td>{{ $category->id }}</td>
+            <td>
+              <select class="form-select" name="modify" form="update{{ $category->id }}">
+                @foreach (App\Enums\Modify::cases() as $case)
+                  <option value="{{ $case }}" @selected($category->modify === $case)>{{ $case->title() }}</option>
+                @endforeach
+              </select>
+            </td>
+            <td>
+              <input type="text" name="title" value="{{ $category->title }}" class="form-control" form="update{{ $category->id }}" required>
+            </td>
+            <td>
+              <select class="form-select" name="carryover" form="update{{ $category->id }}">
+                @foreach (App\Enums\Carryover::cases() as $case)
+                  <option value="{{ $case }}" @selected($category->carryover === $case)>{{ $case->title() }}</option>
+                @endforeach
+              </select>
+            </td>
+            <td>
+              <button type="submit" class="btn btn-primary" form="update{{ $category->id }}">更新</button>
+              <button type="submit" class="btn btn-danger" form="destroy{{ $category->id }}">削除</button>
+            </td>
+          </tr>
+        </form>
       @endforeach
     </tbody>
   </x-ui.table>
-  
-  @foreach ($journal_categories as $category)
-    <x-ui.modal id="editModal{{ $category->id }}" title="編集">
-      <form action="/journal_categories/{{ $category->id }}" method="post">
-        @csrf
-        @method('PUT')
-        <div class="mb-3">
-          <label class="form-label">個別修正/連結修正</label>
-          <select class="form-select" name="modify">
-            @foreach (App\Enums\Modify::cases() as $case)
-              <option value="{{ $case }}" @selected($category->modify === $case)>{{ $case->title() }}</option>
-            @endforeach
-          </select>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">連結仕訳分類名称</label>
-          <input type="text" name="title" value="{{ $category->title }}" class="form-control" required>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">繰越タイプ</label>
-          <select class="form-select" name="carryover">
-            @foreach (App\Enums\Carryover::cases() as $case)
-              <option value="{{ $case }}" @selected($category->carryover === $case)>{{ $case->title() }}</option>
-            @endforeach
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary">更新</button>
-      </form>
-    </x-ui.modal>   
-  @endforeach
-
-  <x-ui.modal id="createCompany" title="新規作成">
-    <form action="{{ route('clients.journal_categories.store', ['client' => $client->id]) }}" method="post">
-      @csrf
-      <div class="mb-3">
-        <label class="form-label">個別修正/連結修正</label>
-        <select class="form-select" name="modify">
-          @foreach (App\Enums\Modify::cases() as $case)
-            <option value="{{ $case }}">{{ $case->title() }}</option>
-          @endforeach
-        </select>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">連結仕訳分類名称</label>
-        <input type="text" name="title" class="form-control" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">繰越タイプ</label>
-        <select class="form-select" name="carryover">
-          @foreach (App\Enums\Carryover::cases() as $case)
-            <option value="{{ $case }}">{{ $case->title() }}</option>
-          @endforeach
-        </select>
-      </div>
-      <button type="submit" class="btn btn-primary">作成</button>
-    </form>
-  </x-ui.modal>   
 </x-layout>

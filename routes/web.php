@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('clients/{client}')->group(function () {
         Route::put('{statement}', [RecordController::class, 'sync']);
+        Route::get('details_edit', [DetailController::class, 'edit']);
     });
 
     # master
@@ -64,8 +65,7 @@ Route::middleware(['auth'])->group(function () {
     Route::apiResource('records', RecordController::class)->only(['update', 'destroy']);
     
     # journal
-    Route::get('details_edit', [DetailController::class, 'edit']);
-    Route::apiResource('clients.details', RecordController::class)->shallow()->except(['show']);
+    Route::apiResource('clients.details', DetailController::class)->shallow()->except(['show']);
     Route::get('balance', [DetailController::class, 'balance']);
     
     # managemant

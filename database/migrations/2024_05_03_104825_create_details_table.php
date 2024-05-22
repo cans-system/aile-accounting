@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('company_business_id')->constrained('company_business');
             $table->foreignId('target_company_business_id')->constrained('company_business');
             $table->foreignId('account_id')->constrained();
-            $table->integer('dr_amount');
-            $table->integer('cr_amount');
-            $table->string('note');
+            $table->integer('dr_amount')->default(0);
+            $table->integer('cr_amount')->default(0);
+            $table->string('note')->nullable();
             $table->string('file_name')->nullable();
             $table->foreignId('journal_subcategory_id')->constrained();
             $table->timestamps();

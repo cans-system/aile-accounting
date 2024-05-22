@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class DetailController extends Controller
 {
+    public function index (Request $request, Client $client) {
+        return view('pages.journal.details', [
+            'details' => $client->details,
+            'client' => $client
+        ]);
+    }
+
     public function edit (Request $request, Client $client) {
         return view('pages.journal.details_edit', [
             'details' => $client->details,

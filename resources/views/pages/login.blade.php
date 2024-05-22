@@ -24,6 +24,6 @@
     </div>
   </div>
 </main>
-<x-toast />
+<x-ui.toast />
 </body>
 </html>

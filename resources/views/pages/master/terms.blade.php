@@ -4,7 +4,7 @@
   <div class="mb-4 d-flex gap-5">
     <button class="btn button" data-bs-toggle="modal" data-bs-target="#createModal">新規作成</button>
   </div>
-  <x-table>
+  <x-ui.table>
     <thead>
       <tr class="table-lightblue">
         <th>分類</th>
@@ -24,17 +24,17 @@
           </td>
           <td>{{ $term->period->title() }}</td>
           <td>
-            <x-ellipsis
+            <x-ui.ellipsis
             edit-modal-id="editModal{{ $term->id }}"
             delete-action="/terms/{{ $term->id }}" />
           </td>
         </tr>
       @endforeach
     </tbody>
-  </x-table>
+  </x-ui.table>
   
   @foreach ($terms as $term)
-    <x-modal id="editModal{{ $term->id }}" title="編集">
+    <x-ui.modal id="editModal{{ $term->id }}" title="編集">
       <form action="/terms/{{ $term->id }}" method="post">
         @csrf
         @method('PUT')
@@ -67,10 +67,10 @@
         </div>
         <button type="submit" class="btn btn-primary">更新</button>
       </form>
-    </x-modal>   
+    </x-ui.modal>   
   @endforeach
 
-  <x-modal id="createModal" title="新規作成">
+  <x-ui.modal id="createModal" title="新規作成">
     <form action="/clients/{{ $client->id }}/terms" method="post">
       @csrf
       <div class="mb-3">
@@ -102,5 +102,5 @@
       </div>
       <button type="submit" class="btn btn-primary">作成</button>
     </form>
-  </x-modal>   
+  </x-ui.modal>   
 </x-layout>

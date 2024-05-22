@@ -5,7 +5,7 @@
     <button class="btn button" data-bs-toggle="modal" data-bs-target="#createModal">新規作成</button>
   </div>
   <p>〇：入力、編集、削除　●：承認のみ　△：閲覧のみ　×：使用不可</p>
-  <x-table>
+  <x-ui.table>
     <thead>
       <tr class="table-lightblue">
         <th>ID</th>
@@ -40,17 +40,17 @@
             </td>              
           @endforeach
           <td>
-            <x-ellipsis
+            <x-ui.ellipsis
             edit-modal-id="editModal{{ $role->id }}"
             delete-action="/roles/{{ $role->id }}" />
           </td>
         </tr>
       @endforeach
     </tbody>
-  </x-table>
+  </x-ui.table>
   
   @foreach ($roles as $role)
-    <x-modal id="editModal{{ $role->id }}" title="編集">
+    <x-ui.modal id="editModal{{ $role->id }}" title="編集">
       <form action="/roles/{{ $role->id }}" method="post">
         @csrf
         @method('PUT')
@@ -72,10 +72,10 @@
         @endforeach
         <button type="submit" class="btn btn-primary">更新</button>
       </form>
-    </x-modal>   
+    </x-ui.modal>   
   @endforeach
 
-  <x-modal id="createModal" title="新規作成">
+  <x-ui.modal id="createModal" title="新規作成">
     <form action="/clients/{{ $client->id }}/roles" method="post">
       @csrf
       <div class="mb-3">
@@ -96,5 +96,5 @@
       @endforeach
       <button type="submit" class="btn btn-primary">作成</button>
     </form>
-  </x-modal>   
+  </x-ui.modal>   
 </x-layout>

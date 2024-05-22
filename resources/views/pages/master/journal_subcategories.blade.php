@@ -4,7 +4,7 @@
   <div class="mb-4 d-flex gap-5">
     <button class="btn button" data-bs-toggle="modal" data-bs-target="#createCompany">新規作成</button>
   </div>
-  <x-table>
+  <x-ui.table>
     <thead>
       <tr class="table-lightblue">
         <th>連結仕訳分類</th>
@@ -20,17 +20,17 @@
           <td>{{ $subcategory->id }}</td>
           <td>{{ $subcategory->title }}</td>
           <td>
-            <x-ellipsis
+            <x-ui.ellipsis
             edit-modal-id="editModal{{ $subcategory->id }}"
             delete-action="/journal_subcategories/{{ $subcategory->id }}" />
           </td>
         </tr>
       @endforeach
     </tbody>
-  </x-table>
+  </x-ui.table>
   
   @foreach ($journal_subcategories as $subcategory)
-    <x-modal id="editModal{{ $subcategory->id }}" title="編集">
+    <x-ui.modal id="editModal{{ $subcategory->id }}" title="編集">
       <form action="/journal_subcategories/{{ $subcategory->id }}" method="post">
         @csrf
         @method('PUT')
@@ -50,10 +50,10 @@
         </div>
         <button type="submit" class="btn btn-primary">更新</button>
       </form>
-    </x-modal>   
+    </x-ui.modal>   
   @endforeach
 
-  <x-modal id="createCompany" title="新規作成">
+  <x-ui.modal id="createCompany" title="新規作成">
     <form action="/clients/{{ $client->id }}/journal_subcategories" method="post">
       @csrf
       <div class="mb-3">
@@ -72,5 +72,5 @@
       </div>
       <button type="submit" class="btn btn-primary">作成</button>
     </form>
-  </x-modal>   
+  </x-ui.modal>   
 </x-layout>

@@ -3,7 +3,7 @@
   <div class="mb-4 d-flex gap-5">
     <button class="btn button" data-bs-toggle="modal" data-bs-target="#createUser">新規作成</button>
   </div>
-  <x-table>
+  <x-ui.table>
     <thead>
       <tr class="table-lightblue">
         <th>ユーザー企業名</th>
@@ -23,7 +23,7 @@
           <td>{{ $client->pic_contact }}</td>
           <td>{{ $client->note }}</td>
           <td>
-            <x-ellipsis
+            <x-ui.ellipsis
             edit-modal-id="editUser{{ $client->id }}"
             delete-action="/admin/clients/{{ $client->id }}">
               <li>
@@ -33,15 +33,15 @@
                   <button class="dropdown-item">サポートログイン</button>
                 </form>
               </li>
-            </x-ellipsis>
+            </x-ui.ellipsis>
           </td>
         </tr>
       @endforeach
     </tbody>
-  </x-table>
+  </x-ui.table>
   
   @foreach ($clients as $client)
-    <x-modal id="editUser{{ $client->id }}" title="編集">
+    <x-ui.modal id="editUser{{ $client->id }}" title="編集">
       <form action="/admin/clients/{{ $client->id }}" method="post">
         @csrf
         @method('PUT')
@@ -67,10 +67,10 @@
         </div>
         <button type="submit" class="btn btn-primary">更新</button>
       </form>
-    </x-modal>   
+    </x-ui.modal>   
   @endforeach
 
-  <x-modal id="createUser" title="新規作成">
+  <x-ui.modal id="createUser" title="新規作成">
     <form action="/admin/clients" method="post">
       @csrf
       <div class="mb-3">
@@ -95,5 +95,5 @@
       </div>
       <button type="submit" class="btn btn-primary">作成</button>
     </form>
-  </x-modal>   
+  </x-ui.modal>   
 </x-layout>

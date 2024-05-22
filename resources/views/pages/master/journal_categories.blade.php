@@ -4,10 +4,10 @@
   <div class="mb-4 d-flex gap-5">
     <form action="{{ route('clients.journal_categories.store', ['client' => $client->id]) }}" method="post">
       @csrf
-      <div class="d-flex gap-4 align-items-end">
+      <div class="d-flex gap-2 align-items-end">
         <div>
           <label class="form-label">個別修正/連結修正</label>
-          <select class="form-select" name="modify">
+          <select class="form-select form-select-sm" name="modify">
             @foreach (App\Enums\Modify::cases() as $case)
               <option value="{{ $case }}">{{ $case->title() }}</option>
             @endforeach
@@ -15,17 +15,17 @@
         </div>
         <div>
           <label class="form-label">連結仕訳分類名称</label>
-          <input type="text" name="title" class="form-control" required>
+          <input type="text" name="title" class="form-control form-control-sm" required>
         </div>
         <div>
           <label class="form-label">繰越タイプ</label>
-          <select class="form-select" name="carryover">
+          <select class="form-select form-select-sm" name="carryover">
             @foreach (App\Enums\Carryover::cases() as $case)
               <option value="{{ $case }}">{{ $case->title() }}</option>
             @endforeach
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">作成</button>
+        <button type="submit" class="btn btn-success btn-sm">作成</button>
       </div>
     </form>
   </div>
@@ -45,32 +45,37 @@
           @csrf
           @method('PUT')
         </form>
-        <form action="/journal_categories/{{ $category->id }}" method="post" id="destroy{{ $category->id }}">
+        <form
+          action="/journal_categories/{{ $category->id }}"
+          method="post"
+          id="destroy{{ $category->id }}"
+          onsubmit="return window.confirm('関連するデータも削除されますが本当に削除しますか？')"
+        >
           @csrf
           @method('DELETE')
         </form>
           <tr>
             <td>{{ $category->id }}</td>
             <td>
-              <select class="form-select" name="modify" form="update{{ $category->id }}">
+              <select class="form-select form-select-sm" name="modify" form="update{{ $category->id }}">
                 @foreach (App\Enums\Modify::cases() as $case)
                   <option value="{{ $case }}" @selected($category->modify === $case)>{{ $case->title() }}</option>
                 @endforeach
               </select>
             </td>
             <td>
-              <input type="text" name="title" value="{{ $category->title }}" class="form-control" form="update{{ $category->id }}" required>
+              <input type="text" name="title" value="{{ $category->title }}" class="form-control form-control-sm" form="update{{ $category->id }}" required>
             </td>
             <td>
-              <select class="form-select" name="carryover" form="update{{ $category->id }}">
+              <select class="form-select form-select-sm" name="carryover" form="update{{ $category->id }}">
                 @foreach (App\Enums\Carryover::cases() as $case)
                   <option value="{{ $case }}" @selected($category->carryover === $case)>{{ $case->title() }}</option>
                 @endforeach
               </select>
             </td>
             <td>
-              <button type="submit" class="btn btn-primary" form="update{{ $category->id }}">更新</button>
-              <button type="submit" class="btn btn-danger" form="destroy{{ $category->id }}">削除</button>
+              <button type="submit" class="btn btn-primary btn-sm" form="update{{ $category->id }}">更新</button>
+              <button type="submit" class="btn btn-danger btn-sm" form="destroy{{ $category->id }}">削除</button>
             </td>
           </tr>
         </form>

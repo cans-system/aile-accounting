@@ -1,6 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+html {
+  height: 100%;
+  scroll-behavior: auto !important;
+  scroll-padding: 24px;
+}
+
 body {
   font-family: 'Roboto', 'Noto Sans JP', sans-serif;
   background-color: #F2F2F2;
@@ -43,4 +49,10 @@ body {
   background-color: #4472C4;
   color: #ffffff;
   border-radius: .375rem;
+}
+
+.table-transparent {
+  > :not(caption) > * > * {
+    background-color: transparent !important;
+  }
 }

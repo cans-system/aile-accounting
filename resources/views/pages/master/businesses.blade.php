@@ -2,7 +2,25 @@
   <x-breadcrumb client_id="{{ $client->id }}" />
   <p>画面説明：xxxxx</p>
   <div class="mb-4 d-flex gap-5">
-    <button class="btn button" data-bs-toggle="modal" data-bs-target="#createModal">新規作成</button>
+    <form action="{{ route('clients.businesses.store', ['client' => $client->id]) }}" method="post">
+      @csrf
+      <input type="hidden" name="enabled" value="1">
+      <div class="d-flex gap-2 align-items-end">
+        <div>
+          <label class="form-label">事業セグメント名称</label>
+          <input type="text" name="title" class="form-control form-control-sm" required>
+        </div>
+        <div>
+          <label class="form-label">開示セグメント</label>
+          <select class="form-select form-select-sm" name="disclosed_business_list_id">
+            @foreach ($lists as $list)
+              <option value="{{ $list->id }}">{{ $list->title }}</option>
+            @endforeach
+          </select>
+        </div>
+        <button type="submit" class="btn btn-success btn-sm">作成</button>
+      </div>
+    </form>
   </div>
   <x-ui.table>
     <thead>
@@ -16,73 +34,49 @@
     </thead>
     <tbody>
       @foreach ($businesses as $business)
+        <form action="/businesses/{{ $business->id }}" method="post" id="update{{ $business->id }}">
+          @csrf
+          @method('PUT')
+        </form>
+        <form
+          action="/businesses/{{ $business->id }}"
+          method="post"
+          onsubmit="return window.confirm('本当に削除しますか？')"
+          id="destroy{{ $business->id }}"
+        >
+          @csrf
+          @method('DELETE')
+        </form>  
         <tr>
           <td>{{ $business->id }}</td>
-          <td>{{ $business->title }}</td>
-          <td>{{ $business->disclosed_business_list->title }}</td>
           <td>
-            @if ($business->enabled)
-              有効
-            @else
-              利用不可
-            @endif
+            <input type="text" name="title" value="{{ $business->title }}" class="form-control form-control-sm" form="update{{ $business->id }}" required>
           </td>
           <td>
-            <x-ui.ellipsis
-            edit-modal-id="editModal{{ $business->id }}"
-            delete-action="/businesses/{{ $business->id }}" />
+            <select class="form-select form-select-sm" name="disclosed_business_list_id" form="update{{ $business->id }}">
+              @foreach ($lists as $list)
+                <option value="{{ $list->id }}" @selected($list->id == $business->disclosed_business_list_id)>{{ $list->title }}</option>
+              @endforeach
+            </select>  
+          </td>
+          <td>
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="1"
+                name="enabled"
+                form="update{{ $business->id }}"
+                @checked($business->enabled)
+              />
+            </div>
+          </td>
+          <td>
+            <button type="submit" class="btn btn-primary btn-sm" form="update{{ $business->id }}">更新</button>
+            <button type="submit" class="btn btn-danger btn-sm" form="destroy{{ $business->id }}">削除</button>
           </td>
         </tr>
       @endforeach
     </tbody>
   </x-ui.table>
-  
-  @foreach ($businesses as $business)
-    <x-ui.modal id="editModal{{ $business->id }}" title="編集">
-      <form action="/businesses/{{ $business->id }}" method="post">
-        @csrf
-        @method('PUT')
-        <div class="mb-3">
-          <label class="form-label">事業セグメント名称</label>
-          <input type="text" name="title" value="{{ $business->title }}" class="form-control" required>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">開示セグメント</label>
-          <select class="form-select" name="disclosed_business_list_id">
-            @foreach ($lists as $list)
-              <option value="{{ $list->id }}" @selected($list->id == $business->disclosed_business_list_id)>{{ $list->title }}</option>
-            @endforeach
-          </select>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">有効/利用不可</label>
-          <x-ui.enabled :enabled="$business->enabled" />
-        </div>  
-        <button type="submit" class="btn btn-primary">更新</button>
-      </form>
-    </x-ui.modal>   
-  @endforeach
-  
-  <x-ui.modal id="createModal" title="新規作成">
-    <form action="{{ route('clients.businesses.store', ['client' => $client->id]) }}" method="post">
-      @csrf
-      <div class="mb-3">
-        <label class="form-label">事業セグメント名称</label>
-        <input type="text" name="title" class="form-control" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">開示セグメント</label>
-        <select class="form-select" name="disclosed_business_list_id">
-          @foreach ($lists as $list)
-            <option value="{{ $list->id }}">{{ $list->title }}</option>
-          @endforeach
-        </select>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">有効/利用不可</label>
-        <x-ui.enabled />
-      </div>
-      <button type="submit" class="btn btn-primary">作成</button>
-    </form>
-  </x-ui.modal>   
 </x-layout>

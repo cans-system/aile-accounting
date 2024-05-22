@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::apiResource('clients.disclosed_account_lists', DisclosedAccountListController::class)->shallow()->except(['show']);
     Route::apiResource('clients.currencies', CurrencyController::class)->shallow()->except(['show']);
     Route::apiResource('clients.rates', RateController::class)->shallow()->except(['show']);
+    Route::apiResource('disclosed_business_lists.businesses', BusinessController::class)->shallow()->except(['show']);
     Route::apiResource('clients.businesses', BusinessController::class)->shallow()->except(['show']);
     Route::apiResource('clients.disclosed_business_lists', DisclosedBusinessListController::class)->shallow()->except(['show']);
     Route::apiResource('clients.journal_categories', JournalCategoryController::class)->shallow()->except(['show']);

@@ -4,7 +4,7 @@
 <body>
   <x-header />
   <main>
-    <div class="px-4">
+    <div class="px-4 pb-2">
       {{ $slot }}
     </div>
   </main>
